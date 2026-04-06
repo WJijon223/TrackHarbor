@@ -4,9 +4,11 @@
 <?import javafx.scene.layout.AnchorPane?>
 
 <AnchorPane prefHeight="600.0" prefWidth="900.0"
+            stylesheets="@styles/dashboard-page-styles.css"
             xmlns="http://javafx.com/javafx/21"
             xmlns:fx="http://javafx.com/fxml/1"
             fx:controller="com.trackharbor.trackharbor.controllers.DashboardPageController">
+
     <children>
         <Label layoutX="30.0" layoutY="30.0" text="Dashboard Page" />
     </children>
