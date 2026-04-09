@@ -12,7 +12,8 @@
 <StackPane xmlns="http://javafx.com/javafx/21" xmlns:fx="http://javafx.com/fxml/1"
            fx:controller="com.trackharbor.trackharbor.controllers.TablePageController"
            prefHeight="700.0" prefWidth="1100.0"
-           style="-fx-background-color: #f0ebff;">
+           style="-fx-background-color: #f0ebff;"
+           stylesheets="@styles/table-page-styles.css">
 
     <children>
 
