@@ -1,14 +1,223 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.geometry.Insets?>
 
-<AnchorPane prefHeight="600.0" prefWidth="900.0"
-            stylesheets="@styles/notes-page-styles.css"
-            xmlns="http://javafx.com/javafx/21"
-            xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="com.trackharbor.trackharbor.controllers.NotesPageController">
-    <children>
-        <Label layoutX="30.0" layoutY="30.0" text="Notes Page" />
-    </children>
-</AnchorPane>
+
+
+
+
+<BorderPane
+        xmlns="http://javafx.com/javafx/17"
+        xmlns:fx="http://javafx.com/fxml/1"
+        fx:controller="com.trackharbor.trackharbor.controllers.NotesPageController"
+        stylesheets="@styles/notes-page-styles.css"
+        styleClass="root-pane">
+
+    <!--  left Sidebar  -->
+    <left>
+        <VBox styleClass="sidebar" prefWidth="68" alignment="TOP_CENTER" spacing="28">
+            <VBox.margin><Insets top="24"/></VBox.margin>
+
+            <!-- Logo mark -->
+            <StackPane styleClass="sidebar-logo">
+                <Label text="logo" styleClass="sidebar-logo-text"/>
+            </StackPane>
+
+            <!-- Nav icons -->
+            <VBox spacing="20" alignment="CENTER">
+                <Button text="⌂" styleClass="nav-btn"/>
+                <Button text="✏" styleClass="nav-btn"/>
+                <Button text="✦" styleClass="nav-btn"/>
+                <Button text="⚙" styleClass="nav-btn"/>
+            </VBox>
+
+            <Region VBox.vgrow="ALWAYS"/>
+
+            <!-- avatar -->
+            <StackPane styleClass="sidebar-avatar">
+                <Label text="JM" styleClass="sidebar-avatar-text"/>
+            </StackPane>
+            <VBox.margin><Insets bottom="24"/></VBox.margin>
+        </VBox>
+    </left>
+
+    <center>
+        <HBox styleClass="page-body">
+
+            <!-- main Column  -->
+            <VBox styleClass="main-col" HBox.hgrow="ALWAYS">
+
+                <!-- top Bar -->
+                <HBox styleClass="top-bar" alignment="CENTER_LEFT" spacing="8">
+                    <Label text="Dashboard" styleClass="crumb-inactive"/>
+                    <Label text="›" styleClass="crumb-sep"/>
+                    <Label text="My Notes" styleClass="crumb-active"/>
+                    <Region HBox.hgrow="ALWAYS"/>
+                    <Label text="↻  Sync" styleClass="sync-label"/>
+                </HBox>
+
+                <!-- header -->
+                <VBox styleClass="header-block">
+                    <Label text="Interview Notes" styleClass="page-title"/>
+                    <Label text="All your prep materials in one place." styleClass="page-subtitle"/>
+                </VBox>
+
+                <!-- search row -->
+                <HBox styleClass="search-row" alignment="CENTER_LEFT" spacing="12">
+                    <TextField fx:id="mainSearch" promptText="⌕  Search notes, companies, roles…"
+                               styleClass="search-field" HBox.hgrow="ALWAYS"/>
+                    <Button text="Filter" styleClass="filter-btn"/>
+                </HBox>
+
+                <!-- Section label -->
+                <HBox styleClass="section-label-row" alignment="CENTER_LEFT">
+                    <Label text="RECENT" styleClass="section-label"/>
+                    <Region HBox.hgrow="ALWAYS"/>
+                    <Label text="4 entries" styleClass="section-count"/>
+                </HBox>
+
+                <!-- cards -->
+                <ScrollPane styleClass="scroll-pane" fitToWidth="true" VBox.vgrow="ALWAYS">
+                    <VBox fx:id="cardsContainer" styleClass="cards-list" spacing="12">
+                        <VBox.margin><Insets top="4" bottom="16"/></VBox.margin>
+
+                        <!-- card 1 – Capital One -->
+                        <HBox styleClass="note-card" spacing="16" alignment="CENTER_LEFT">
+                            <StackPane styleClass="company-badge badge-red">
+                                <Label text="C1" styleClass="badge-text"/>
+                            </StackPane>
+                            <VBox HBox.hgrow="ALWAYS" spacing="3">
+                                <Label text="Capital One" styleClass="card-company"/>
+                                <Label text="Technology Internship" styleClass="card-role"/>
+                                <Label text="Updated 5 days ago" styleClass="card-meta"/>
+                            </VBox>
+                            <VBox alignment="CENTER_RIGHT" spacing="6">
+                                <Label text="4 notes" styleClass="notes-pill"/>
+                                <Label text="›" styleClass="card-arrow"/>
+                            </VBox>
+                        </HBox>
+
+                        <!-- card 2 – Google -->
+                        <HBox styleClass="note-card" spacing="16" alignment="CENTER_LEFT">
+                            <StackPane styleClass="company-badge badge-blue">
+                                <Label text="G" styleClass="badge-text"/>
+                            </StackPane>
+                            <VBox HBox.hgrow="ALWAYS" spacing="3">
+                                <Label text="Google" styleClass="card-company"/>
+                                <Label text="SWE New Grad" styleClass="card-role"/>
+                                <Label text="Updated 2 weeks ago" styleClass="card-meta"/>
+                            </VBox>
+                            <VBox alignment="CENTER_RIGHT" spacing="6">
+                                <Label text="7 notes" styleClass="notes-pill"/>
+                                <Label text="›" styleClass="card-arrow"/>
+                            </VBox>
+                        </HBox>
+
+                        <!-- card 3 – Stripe -->
+                        <HBox styleClass="note-card" spacing="16" alignment="CENTER_LEFT">
+                            <StackPane styleClass="company-badge badge-purple">
+                                <Label text="S" styleClass="badge-text"/>
+                            </StackPane>
+                            <VBox HBox.hgrow="ALWAYS" spacing="3">
+                                <Label text="Stripe" styleClass="card-company"/>
+                                <Label text="Backend Engineer" styleClass="card-role"/>
+                                <Label text="Updated 1 month ago" styleClass="card-meta"/>
+                            </VBox>
+                            <VBox alignment="CENTER_RIGHT" spacing="6">
+                                <Label text="2 notes" styleClass="notes-pill"/>
+                                <Label text="›" styleClass="card-arrow"/>
+                            </VBox>
+                        </HBox>
+
+                        <!-- card 4 – Apple -->
+                        <HBox styleClass="note-card" spacing="16" alignment="CENTER_LEFT">
+                            <StackPane styleClass="company-badge badge-gray">
+                                <Label text="A" styleClass="badge-text"/>
+                            </StackPane>
+                            <VBox HBox.hgrow="ALWAYS" spacing="3">
+                                <Label text="Apple" styleClass="card-company"/>
+                                <Label text="iOS Developer Internship" styleClass="card-role"/>
+                                <Label text="Updated 1 month ago" styleClass="card-meta"/>
+                            </VBox>
+                            <VBox alignment="CENTER_RIGHT" spacing="6">
+                                <Label text="5 notes" styleClass="notes-pill"/>
+                                <Label text="›" styleClass="card-arrow"/>
+                            </VBox>
+                        </HBox>
+
+                    </VBox>
+                </ScrollPane>
+
+            </VBox>
+
+            <!-- Right Panel  -->
+            <VBox styleClass="right-panel" prefWidth="300" spacing="20">
+
+                <!-- add note Button -->
+                <Button text="＋  Add Note" styleClass="add-btn" maxWidth="Infinity"/>
+
+                <!-- sort -->
+                <VBox styleClass="right-card" spacing="10">
+                    <Label text="SORT BY" styleClass="right-card-title"/>
+                    <HBox spacing="8">
+                        <Button text="Recent" styleClass="sort-chip"/>
+                        <Button text="Company" styleClass="sort-chip"/>
+                        <Button text="Role" styleClass="sort-chip"/>
+                    </HBox>
+                </VBox>
+
+
+                <!-- AI Tips label -->
+                <Label text="AI TIPS" styleClass="section-label"/>
+
+                <!-- AI Tip 1 -->
+                <VBox styleClass="ai-card" spacing="0">
+                    <HBox styleClass="ai-card-header" alignment="CENTER_LEFT" spacing="8">
+                        <Label text="✦" styleClass="ai-icon"/>
+                        <Label text="Use the STAR Method" styleClass="ai-title"/>
+                    </HBox>
+                    <VBox styleClass="ai-card-body" spacing="6">
+                        <Label text="Structure behavioral answers with Situation, Task, Action, and Result to keep responses concise and impactful."
+                               styleClass="ai-tip-body" wrapText="true"/>
+                    </VBox>
+                </VBox>
+
+                <!-- AI Tip 2 -->
+                <VBox styleClass="ai-card" spacing="0">
+                    <HBox styleClass="ai-card-header" alignment="CENTER_LEFT" spacing="8">
+                        <Label text="✦" styleClass="ai-icon"/>
+                        <Label text="Research the Company" styleClass="ai-title"/>
+                    </HBox>
+                    <VBox styleClass="ai-card-body" spacing="6">
+                        <Label text="Review recent news, products, and mission. Interviewers notice when candidates connect answers to company values."
+                               styleClass="ai-tip-body" wrapText="true"/>
+                    </VBox>
+                </VBox>
+
+                <!-- AI Tip 3 -->
+                <VBox styleClass="ai-card" spacing="0">
+                    <HBox styleClass="ai-card-header" alignment="CENTER_LEFT" spacing="8">
+                        <Label text="✦" styleClass="ai-icon"/>
+                        <Label text="Prepare Smart Questions" styleClass="ai-title"/>
+                    </HBox>
+                    <VBox styleClass="ai-card-body" spacing="6">
+                        <Label text="Have 2–3 thoughtful questions ready. Ask about team culture, growth paths, or current challenges the team is solving."
+                               styleClass="ai-tip-body" wrapText="true"/>
+                    </VBox>
+                </VBox>
+
+            </VBox>
+
+        </HBox>
+    </center>
+
+</BorderPane>
