@@ -33,7 +33,7 @@ public class HelloApplication extends Application {
         legend.setPadding(new Insets(20));
         legend.setStyle("-fx-background-color: #f9dada; -fx-border-radius: 10; -fx-background-radius: 10;");
         legend.getChildren().addAll(
-                createLegendItem(Color.PINK, "No response"),
+                createLegendItem(Color.web("#FF69B4"), "No response"),
                 createLegendItem(Color.PURPLE, "2nd Interview"),
                 createLegendItem(Color.LIMEGREEN, "Waiting"),
                 createLegendItem(Color.RED, "Rejected"),
@@ -63,7 +63,9 @@ public class HelloApplication extends Application {
         innerCircle.centerYProperty().bind(pieChart.heightProperty().divide(2));
 
         // Adjust size for donut thickness
-        innerCircle.radiusProperty().bind(pieChart.widthProperty().divide(6));
+        innerCircle.radiusProperty().bind(
+                pieChart.widthProperty().add(pieChart.heightProperty()).divide(12)
+        );
 
         StackPane chartContainer = new StackPane();
         chartContainer.getChildren().addAll(pieChart, innerCircle);
@@ -78,10 +80,49 @@ public class HelloApplication extends Application {
         // ===== Assign slice colors to match legend =====
         String[] colors = {"#FF69B4", "#800080", "#32CD32", "#FF0000", "#0000FF", "#000000", "#FFD700"};
         for (int i = 0; i < pieChart.getData().size(); i++) {
-            pieChart.getData().get(i).getNode().setStyle(
-                    "-fx-pie-color: " + colors[i] + ";"
-            );
+            PieChart.Data data = pieChart.getData().get(i);
+
+            // Set base color
+            data.getNode().setStyle("-fx-pie-color: " + colors[i] + ";");
+
+            // Hover effect
+            final int index = i;
+            data.getNode().setOnMouseEntered(e -> {
+                data.getNode().setStyle(
+                        "-fx-pie-color: " + colors[index] + "; " +
+                                "-fx-effect: dropshadow(gaussian, rgba(0,0,0,0.4), 15, 0.2, 0, 0); " +
+                                "-fx-scale-x: 1.05; -fx-scale-y: 1.05;"
+                );
+            });
+
+            data.getNode().setOnMouseExited(e -> {
+                data.getNode().setStyle(
+                        "-fx-pie-color: " + colors[index] + "; " +
+                                "-fx-effect: none; " +
+                                "-fx-scale-x: 1.0; -fx-scale-y: 1.0;"
+                );
+            });
         }
+        HBox.setMargin(chartContainer, new Insets(0, 50, 0, 0));
+        VBox detailsPanel = new VBox();
+        detailsPanel.setPrefWidth(300);
+        detailsPanel.setSpacing(15);
+        detailsPanel.setPadding(new Insets(20));
+        detailsPanel.setStyle(
+                "-fx-background-color: white; " +
+                        "-fx-background-radius: 15; " +
+                        "-fx-effect: dropshadow(gaussian, rgba(0,0,0,0.1), 15, 0.2, 0, 4);"
+        );
+
+        Label title = new Label("Details");
+        title.setStyle("-fx-font-size: 20px; -fx-font-weight: bold;");
+        detailsPanel.getChildren().add(title);
+
+        detailsPanel.getChildren().add(createDetailsItem("Google", "2024‑02‑10"));
+        detailsPanel.getChildren().add(createDetailsItem("Amazon", "2024‑02‑08"));
+        detailsPanel.getChildren().add(createDetailsItem("Netflix", "2024‑02‑05"));
+
+
 
         // ===== Layout =====
         HBox mainContent = new HBox(20); // spacing between legend and chart
@@ -90,7 +131,7 @@ public class HelloApplication extends Application {
         mainContent.setPadding(new Insets(20));
         mainContent.setAlignment(Pos.CENTER);
         mainContent.setSpacing(50);
-        mainContent.getChildren().addAll(legend, chartContainer);
+        mainContent.getChildren().addAll(legend, chartContainer, detailsPanel);
 
         VBox root = new VBox();
         VBox.setVgrow(mainContent, Priority.ALWAYS);
@@ -100,6 +141,11 @@ public class HelloApplication extends Application {
         pieChart.setMaxSize(Double.MAX_VALUE, Double.MAX_VALUE);
 
         Scene scene = new Scene(root, 1080, 600);
+
+
+
+
+
 
         // Add stylesheet
         scene.getStylesheets().add(getClass().getResource("styles.css").toExternalForm());
@@ -126,8 +172,20 @@ public class HelloApplication extends Application {
         box.setPadding(new Insets(5, 0, 5, 5));
         return box;
     }
+    private VBox createDetailsItem(String companyName, String date) {
 
-    public static void main(String[] args) {
-        launch(args);
+        Label nameLabel = new Label(companyName);
+        nameLabel.setStyle("-fx-font-size: 15px; -fx-font-weight: bold; -fx-text-fill: #111827;");
+
+        Label dateLabel = new Label("Date: " + date);
+        dateLabel.setStyle("-fx-font-size: 13px; -fx-text-fill: #6b7280;");
+
+        VBox box = new VBox(nameLabel, dateLabel);
+        box.setSpacing(2);
+        box.setPadding(new Insets(8, 0, 8, 0));
+
+        return box;
     }
+
+
 }
