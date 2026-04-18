@@ -1,12 +1,12 @@
 .chart-pie { -fx-pie-color: transparent; }
 
-/* ===== Root Background ===== */
+/*Root*/
 .root {
     -fx-background-color: linear-gradient(to bottom right, #eef2f7, #6b7885);
     -fx-font-family: "Segoe UI", "Inter", sans-serif;
 }
 
-/* ===== Menu Bar ===== */
+/*Menu Bar*/
 .menu-bar-custom {
     -fx-background-color: rgb(217, 190, 255);
     -fx-padding: 12 20;
@@ -26,13 +26,13 @@
 }
 
 
-/* ===== Main Layout ===== */
+/*Layout*/
 .main-content {
     -fx-alignment: center;
     -fx-spacing: 40;
 }
 
-/* ===== Legend Card ===== */
+/*Legend*/
 .legend-box {
     -fx-background-color: #ffffff;
     -fx-background-radius: 15;
@@ -42,13 +42,13 @@
     -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.08), 15, 0.2, 0, 4);
 }
 
-/* ===== Legend Text ===== */
+/*Legend Text*/
 .label {
     -fx-text-fill: #374151;
     -fx-font-size: 14px;
 }
 
-/* ===== Chart Container ===== */
+/*Chart Container*/
 .chart-custom {
     -fx-background-color: white;
     -fx-background-radius: 15;
@@ -57,18 +57,18 @@
     -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.08), 15, 0.2, 0, 4);
 }
 
-/* ===== Chart Title ===== */
+
 .chart-title {
     -fx-text-fill: #111827;
     -fx-font-size: 18px;
     -fx-font-weight: bold;
 }
 
-/* ===== Pie Chart Labels ===== */
+/*Pie Chart Labels*/
 .chart-pie-label {
     -fx-fill: #374151;
     -fx-font-size: 12px;
-}/*dashboard css styles go here*/
+}
 
 .legend-box {
     -fx-background-color: #f9dcdc;
@@ -89,6 +89,7 @@
     -fx-padding: 20;
     -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.08), 15, 0.2, 0, 4);
 }
+/*Details Panel*/
 .details-panel {
     -fx-background-color: #d9beff;
     -fx-background-radius: 15 0 0 15;
@@ -104,7 +105,7 @@
     -fx-font-size: 16px;
     -fx-text-fill: #ffffff;
 }
-
+/*Next & Back Buttons*/
 #nextButton {
     -fx-background-color: #4F46E5;
     -fx-text-fill: white;
