@@ -31,7 +31,7 @@ public class DashboardPageController {
     private boolean isZoomed = false;
     private PieChart.Data activeSlice;
 
-    // Pagination data
+    // Details Panel Limit
     private List<CompanyEntry> currentEntries = new ArrayList<>();
     private int currentPage = 0;
     private final int PAGE_SIZE = 5;
@@ -53,11 +53,12 @@ public class DashboardPageController {
                 chartContainer.widthProperty().add(chartContainer.heightProperty()).divide(12)
         );
 
-        // Pagination button
+        // Next Button
         nextButton.setOnAction(e -> {
             currentPage++;
             loadPage();
         });
+        // Back Button
         backButton.setOnAction(e -> {
             if (currentPage > 0) {
                 currentPage--;
@@ -66,7 +67,7 @@ public class DashboardPageController {
         });
 
     }
-
+    // Pie Chart Data
     private void setupPieChart() {
         pieChart.getData().addAll(
                 new PieChart.Data("No response", 37),
@@ -77,7 +78,7 @@ public class DashboardPageController {
                 new PieChart.Data("Will Not Accept", 5),
                 new PieChart.Data("Job Offered", 2)
         );
-
+    // Pie Chart Data Loop
         for (int i = 0; i < pieChart.getData().size(); i++) {
             PieChart.Data data = pieChart.getData().get(i);
             final int index = i;
@@ -88,7 +89,7 @@ public class DashboardPageController {
     }
 
 
-    // Slide panel in
+    // Panel Slide In 
     private void slideInPanel() {
         TranslateTransition slideIn =
                 new TranslateTransition(Duration.seconds(0.4), detailsPanel);
@@ -98,7 +99,7 @@ public class DashboardPageController {
         slideIn.play();
     }
 
-    // Slide panel out
+    // Panel Slide Out 
     private void hideDetailsPanel() {
         TranslateTransition slideOut =
                 new TranslateTransition(Duration.seconds(0.4), detailsPanel);
@@ -107,18 +108,18 @@ public class DashboardPageController {
         slideOut.setInterpolator(Interpolator.EASE_BOTH);
         slideOut.play();
     }
-
+    // Details Panel Text
     private void showDetailsPanel(String title, int count) {
         detailsTitle.setText(title);
         detailsCount.setText("Count: " + count);
 
-        // Generate demo data
+        // Demo Data, Replace with Getters From Table Page
         currentEntries.clear();
         for (int i = 1; i <= count; i++) {
             currentEntries.add(new CompanyEntry("Company " + i, LocalDate.now().minusDays(i)));
         }
 
-        // Sort newest first
+        // Sort By Date
         currentEntries.sort(Comparator.comparing(CompanyEntry::getDate).reversed());
 
         currentPage = 0;
@@ -126,7 +127,7 @@ public class DashboardPageController {
 
         slideInPanel();
     }
-
+    
     private void loadPage() {
         detailsList.getChildren().clear();
 
@@ -147,16 +148,16 @@ public class DashboardPageController {
 
     public void handleSliceClick(PieChart.Data slice) {
 
-        // If already zoomed and clicking the same slice → reset
+        // Pie Chart Node Toggle
         if (isZoomed && activeSlice == slice) {
             resetChart();
             return;
         }
 
-        // If zoomed but clicking a different slice → ignore
+        
         if (isZoomed) return;
 
-        // Normal first-click behavior
+        
         isZoomed = true;
         activeSlice = slice;
 
@@ -214,7 +215,7 @@ public class DashboardPageController {
     }
 
 
-    // Simple data class
+    // Sample Data Class, Probably Will Be Removed After Firebase
     public static class CompanyEntry {
         private final String name;
         private final LocalDate date;
