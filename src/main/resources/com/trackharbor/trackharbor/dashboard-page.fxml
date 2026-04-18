@@ -38,7 +38,7 @@
               AnchorPane.bottomAnchor="20">
 
 
-        <!-- ===== Legend (Left Side) ===== -->
+        <!-- Legend (Left Side) -->
             <VBox fx:id="legendBox"
                   prefWidth="220"
                   HBox.hgrow="NEVER"
@@ -82,7 +82,7 @@
 
             </VBox>
 
-            <!-- ===== Chart Container (Center) ===== -->
+            <!-- Chart Container (Center) -->
             <StackPane fx:id="chartContainer"
                        HBox.hgrow="ALWAYS"
                         styleClass="chart-custom">
@@ -104,7 +104,7 @@
 
         </HBox>
 
-        <!-- Slide-in Details Panel (ONLY ONE!) -->
+        <!-- Slide-in Details Panel -->
         <VBox fx:id="detailsPanel"
               prefWidth="300"
               spacing="20"
@@ -121,7 +121,7 @@
                 <VBox fx:id="detailsList" spacing="10" style="-fx-padding: 10 15 10 15;"/>
             </ScrollPane>
 
-            <!-- Footer -->
+            <!-- Next & Back Buttons -->
             <HBox alignment="center" spacing="10" style="-fx-padding: 10;">
                 <Button fx:id="backButton"
                         text="Back"
