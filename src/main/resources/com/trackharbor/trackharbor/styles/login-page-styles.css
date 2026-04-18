@@ -1,1 +1,113 @@
-/*login page styling goes here*/
+
+
+/* ── Root / Background ── */
+.root-pane {
+    -fx-background-color: #c9b8f5;
+}
+
+/* ── Card ── */
+.card {
+    -fx-background-color: #ffffff;
+    -fx-background-radius: 16;
+    -fx-border-radius: 16;
+    -fx-border-color: #d0c4f7;
+    -fx-border-width: 1.5;
+    -fx-effect: dropshadow(gaussian, rgba(120, 80, 200, 0.18), 24, 0.2, 0, 6);
+    -fx-padding: 48 48 36 48;
+    -fx-alignment: CENTER;
+}
+
+/* ── Title ── */
+.title-label {
+    -fx-font-family: "Georgia";
+    -fx-font-size: 26px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #1a1a2e;
+    -fx-alignment: CENTER;
+    -fx-padding: 0 0 24 0;
+}
+
+/* ── Field Groups ── */
+.field-group {
+    -fx-padding: 0 0 16 0;
+}
+
+/* ── Field Labels ── */
+.field-label {
+    -fx-font-family: "Arial";
+    -fx-font-size: 13px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #7c3aed;
+}
+
+/* ── Input Fields ── */
+.input-field {
+    -fx-pref-width: 340;
+    -fx-pref-height: 38;
+    -fx-background-color: #e8e8e8;
+    -fx-background-radius: 5;
+    -fx-border-color: transparent;
+    -fx-border-radius: 5;
+    -fx-font-family: "Arial";
+    -fx-font-size: 13px;
+    -fx-text-fill: #333333;
+    -fx-padding: 6 12 6 12;
+}
+
+.input-field:focused {
+    -fx-background-color: #ddd6fe;
+    -fx-border-color: #7c3aed;
+    -fx-border-width: 1.5;
+    -fx-effect: dropshadow(gaussian, rgba(124, 58, 237, 0.25), 8, 0, 0, 0);
+}
+
+/* ── Submit Button ── */
+.submit-button {
+    -fx-pref-width: 340;
+    -fx-pref-height: 42;
+    -fx-background-color: #8b2fe8;
+    -fx-background-radius: 8;
+    -fx-text-fill: #ffffff;
+    -fx-font-family: "Arial";
+    -fx-font-size: 15px;
+    -fx-font-weight: bold;
+    -fx-cursor: hand;
+    -fx-padding: 0;
+    -fx-margin: 8 0 0 0;
+}
+
+.submit-button:hover {
+    -fx-background-color: #7c22d4;
+    -fx-effect: dropshadow(gaussian, rgba(139, 47, 232, 0.45), 12, 0, 0, 4);
+}
+
+.submit-button:pressed {
+    -fx-background-color: #6b1bc2;
+    -fx-effect: none;
+}
+
+/* ── Sign-up Row ── */
+.signup-row {
+    -fx-padding: 14 0 0 0;
+    -fx-alignment: CENTER;
+}
+
+.signup-label {
+    -fx-font-family: "Arial";
+    -fx-font-size: 12px;
+    -fx-text-fill: #555555;
+}
+
+.signup-link {
+    -fx-font-family: "Arial";
+    -fx-font-size: 12px;
+    -fx-text-fill: #7c3aed;
+    -fx-border-color: transparent;
+    -fx-padding: 0;
+    -fx-cursor: hand;
+}
+
+.signup-link:hover {
+    -fx-text-fill: #5b21b6;
+    -fx-underline: true;
+}
