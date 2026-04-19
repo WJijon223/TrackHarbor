@@ -1,14 +1,71 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Hyperlink?>
+<?import javafx.geometry.Insets?>
 
-<AnchorPane prefHeight="600.0" prefWidth="900.0"
-            stylesheets="@styles/login-page-styles.css"
-            xmlns="http://javafx.com/javafx/21"
-            xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="com.trackharbor.trackharbor.controllers.LoginPageController">
-    <children>
-        <Label layoutX="30.0" layoutY="30.0" text="Login Page" />
-    </children>
+<AnchorPane
+    xmlns:fx="http://javafx.com/fxml/1"
+    fx:controller="com.trackharbor.trackharbor.controllers.LoginController"
+    styleClass="root-pane"
+    stylesheets="@login.css"
+    prefWidth="600"
+    prefHeight="420">
+
+    <!-- Centered Card -->
+    <VBox
+        styleClass="card"
+        AnchorPane.topAnchor="60"
+        AnchorPane.bottomAnchor="60"
+        AnchorPane.leftAnchor="100"
+        AnchorPane.rightAnchor="100"
+        spacing="0">
+
+        <!-- Title -->
+        <Label
+            text="Welcome Back!"
+            styleClass="title-label"/>
+
+        <!-- Email Section -->
+        <VBox styleClass="field-group" spacing="6">
+            <Label text="Email Address:" styleClass="field-label"/>
+            <TextField
+                fx:id="emailField"
+                styleClass="input-field"
+                promptText=""/>
+        </VBox>
+
+        <!-- Password Section -->
+        <VBox styleClass="field-group" spacing="6">
+            <Label text="Password:" styleClass="field-label"/>
+            <PasswordField
+                fx:id="passwordField"
+                styleClass="input-field"
+                promptText=""/>
+        </VBox>
+
+        <!-- Submit Button -->
+        <Button
+            fx:id="submitButton"
+            text="Submit"
+            styleClass="submit-button"
+            onAction="#handleSubmit"/>
+
+        <!-- Sign up row -->
+        <HBox styleClass="signup-row" alignment="CENTER">
+            <Label text="Don't have an account? Click " styleClass="signup-label"/>
+            <Hyperlink
+                fx:id="signupLink"
+                text="here"
+                styleClass="signup-link"
+                onAction="#handleSignup"/>
+        </HBox>
+
+    </VBox>
 </AnchorPane>
