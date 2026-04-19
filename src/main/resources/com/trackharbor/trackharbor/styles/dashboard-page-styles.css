@@ -1,1 +1,130 @@
-/*dashboard css styles go here*/
+.chart-pie { -fx-pie-color: transparent; }
+
+/*Root*/
+.root {
+    -fx-background-color: linear-gradient(to bottom right, #eef2f7, #6b7885);
+    -fx-font-family: "Segoe UI", "Inter", sans-serif;
+}
+
+/*Menu Bar*/
+.menu-bar-custom {
+    -fx-background-color: rgb(217, 190, 255);
+    -fx-padding: 12 20;
+    -fx-background-radius: 0 0 18 18;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.25), 20, 0.3, 0, 4);
+}
+
+.menu-bar-custom .label {
+    -fx-text-fill: #111827;
+    -fx-font-size: 20px;
+    -fx-font-weight: 600;
+}
+
+.menu:hover {
+    -fx-background-color: rgba(255,255,255,0.5);
+    -fx-background-radius: 8;
+}
+
+
+/*Layout*/
+.main-content {
+    -fx-alignment: center;
+    -fx-spacing: 40;
+}
+
+/*Legend*/
+.legend-box {
+    -fx-background-color: #ffffff;
+    -fx-background-radius: 15;
+    -fx-padding: 20;
+    -fx-spacing: 35;
+
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.08), 15, 0.2, 0, 4);
+}
+
+/*Legend Text*/
+.label {
+    -fx-text-fill: #374151;
+    -fx-font-size: 14px;
+}
+
+/*Chart Container*/
+.chart-custom {
+    -fx-background-color: white;
+    -fx-background-radius: 15;
+    -fx-padding: 20;
+
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.08), 15, 0.2, 0, 4);
+}
+
+
+.chart-title {
+    -fx-text-fill: #111827;
+    -fx-font-size: 18px;
+    -fx-font-weight: bold;
+}
+
+/*Pie Chart Labels*/
+.chart-pie-label {
+    -fx-fill: #374151;
+    -fx-font-size: 12px;
+}
+
+.legend-box {
+    -fx-background-color: #f9dcdc;
+    -fx-background-radius: 15;
+    -fx-padding: 20;
+    -fx-spacing: 20;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.08), 15, 0.2, 0, 4);
+}
+
+.legend-box .label {
+    -fx-font-size: 14px;
+    -fx-text-fill: #374151;
+}
+
+.chart-custom {
+    -fx-background-color: white;
+    -fx-background-radius: 15;
+    -fx-padding: 20;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.08), 15, 0.2, 0, 4);
+}
+/*Details Panel*/
+.details-panel {
+    -fx-background-color: #d9beff;
+    -fx-background-radius: 15 0 0 15;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.15), 20, 0.2, -4, 0);
+}
+
+.details-title {
+    -fx-font-size: 20px;
+    -fx-font-weight: bold;
+}
+
+.details-count {
+    -fx-font-size: 16px;
+    -fx-text-fill: #ffffff;
+}
+/*Next & Back Buttons*/
+#nextButton {
+    -fx-background-color: #4F46E5;
+    -fx-text-fill: white;
+    -fx-padding: 8 20;
+    -fx-background-radius: 8;
+}
+
+#nextButton:hover {
+    -fx-background-color: #4338CA;
+}
+
+#backButton {
+    -fx-background-color: #4F46E5;
+    -fx-text-fill: white;
+    -fx-padding: 8 20;
+    -fx-background-radius: 8;
+}
+
+#backButton:hover {
+    -fx-background-color: #4338CA;
+}
+
