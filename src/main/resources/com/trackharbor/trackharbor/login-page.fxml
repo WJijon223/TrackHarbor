@@ -12,9 +12,9 @@
 
 <AnchorPane
     xmlns:fx="http://javafx.com/fxml/1"
-    fx:controller="com.trackharbor.trackharbor.controllers.LoginController"
+    fx:controller="com.trackharbor.trackharbor.controllers.LoginPageController"
     styleClass="root-pane"
-    stylesheets="@login.css"
+    stylesheets="@styles/login-page-styles.css"
     prefWidth="600"
     prefHeight="420">
 
