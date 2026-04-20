@@ -8,10 +8,9 @@ import javafx.stage.Stage;
 public class HelloApplication extends Application {
 
     @Override
-    public void start(Stage primaryStage) throws Exception {
-
-        FXMLLoader loader = new FXMLLoader(
-                getClass().getResource("dashboard-page.fxml")
+    public void start(Stage stage) throws IOException {
+        FXMLLoader fxmlLoader = new FXMLLoader(
+                HelloApplication.class.getResource("note-modal.fxml")
         );
 
         Scene scene = new Scene(loader.load());
