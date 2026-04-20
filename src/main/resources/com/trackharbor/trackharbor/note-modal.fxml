@@ -1,15 +1,106 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
 
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="com.trackharbor.trackharbor.controllers.NoteModalController"
-            prefHeight="400.0" prefWidth="600.0"
-            stylesheets="@styles/note-modal-styles.css">
+<StackPane xmlns="http://javafx.com/javafx/21"
+           xmlns:fx="http://javafx.com/fxml/1"
+           fx:controller="com.trackharbor.trackharbor.controllers.NoteModalController"
+           prefHeight="520.0"
+           prefWidth="660.0"
+           stylesheets="@styles/note-modal-styles.css"
+           styleClass="modal-overlay">
 
-</AnchorPane>
+    <VBox maxWidth="620.0" prefWidth="620.0" styleClass="modal-card">
+        <HBox alignment="CENTER_LEFT" spacing="12.0" styleClass="modal-header">
+            <Label text="Edit Notes" styleClass="modal-title"/>
+            <Region HBox.hgrow="ALWAYS"/>
+            <Button mnemonicParsing="false" onAction="#handleClose" styleClass="close-btn" text="✕"/>
+        </HBox>
+
+        <Region styleClass="header-accent"/>
+
+        <VBox spacing="18.0" styleClass="modal-body">
+            <HBox alignment="CENTER_LEFT" spacing="14.0" styleClass="company-row">
+                <StackPane styleClass="company-logo-badge">
+                    <Label text="↺" styleClass="company-logo-mark"/>
+                </StackPane>
+
+                <VBox spacing="3.0">
+                    <Label text="Capital One" styleClass="company-name"/>
+                    <Label text="Technology Internship" styleClass="company-role"/>
+                    <Label text="Added: March 20, 2026" styleClass="company-meta"/>
+                </VBox>
+            </HBox>
+
+            <VBox spacing="10.0">
+                <Label text="Interview Notes" styleClass="modal-section-title"/>
+
+                <VBox spacing="10.0" styleClass="content-panel">
+                    <HBox alignment="CENTER_RIGHT">
+                        <Button fx:id="editNotesButton"
+                                mnemonicParsing="false"
+                                onAction="#handleEditNotes"
+                                styleClass="edit-btn"
+                                text="Edit"/>
+                    </HBox>
+
+                    <TextArea fx:id="interviewNotesArea"
+                              editable="false"
+                              focusTraversable="false"
+                              prefRowCount="5"
+                              styleClass="notes-area"
+                              text="• Discuss SQL Skills (inner joins, left joins, etc)&#10;• Brush up on Python Skills&#10;• Be ready to talk about data structures/algorithms&#10;• Research the interviewers (take a look at their LinkedIn’s)"
+                              wrapText="true"/>
+                </VBox>
+            </VBox>
+
+            <VBox spacing="10.0">
+                <Label text="AI Tips" styleClass="modal-section-title"/>
+
+                <VBox spacing="12.0" styleClass="content-panel">
+                    <TextArea fx:id="aiTipsArea"
+                              editable="false"
+                              focusTraversable="false"
+                              prefRowCount="4"
+                              styleClass="notes-area ai-tips-area"
+                              text="• Brush up on Python Skills&#10;• Use GlassDoor questions to practice"
+                              wrapText="true"/>
+
+                    <HBox alignment="CENTER">
+                        <Button mnemonicParsing="false"
+                                onAction="#handleGenerateTips"
+                                styleClass="generate-btn"
+                                text="Generate Tips"/>
+                    </HBox>
+                </VBox>
+            </VBox>
+        </VBox>
+
+        <HBox alignment="CENTER_LEFT" spacing="12.0" styleClass="modal-footer">
+            <Button mnemonicParsing="false"
+                    onAction="#handleDeleteNote"
+                    styleClass="delete-btn"
+                    text="Delete Note"/>
+            <Region HBox.hgrow="ALWAYS"/>
+            <Button mnemonicParsing="false"
+                    onAction="#handleClose"
+                    styleClass="secondary-btn"
+                    text="Cancel"/>
+            <Button mnemonicParsing="false"
+                    onAction="#handleSaveChanges"
+                    styleClass="primary-btn"
+                    text="Save Changes"/>
+        </HBox>
+    </VBox>
+
+    <StackPane.margin>
+        <Insets bottom="28.0" left="20.0" right="20.0" top="28.0"/>
+    </StackPane.margin>
+</StackPane>
