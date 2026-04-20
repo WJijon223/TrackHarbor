@@ -3,7 +3,10 @@ package com.trackharbor.trackharbor.controllers;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
+import javafx.scene.layout.Pane;
+import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
+import javafx.stage.Window;
 
 public class NoteModalController {
 	private static final String DEFAULT_AI_TIPS = String.join("\n",
@@ -11,6 +14,11 @@ public class NoteModalController {
 			"• Use GlassDoor questions to practice",
 			"• Prepare one STAR story for a technical challenge"
 	);
+
+	private Runnable onCloseRequest;
+
+	@FXML
+	private StackPane modalRoot;
 
 	@FXML
 	private TextArea interviewNotesArea;
@@ -20,6 +28,10 @@ public class NoteModalController {
 
 	@FXML
 	private Button editNotesButton;
+
+	public void setOnCloseRequest(Runnable onCloseRequest) {
+		this.onCloseRequest = onCloseRequest;
+	}
 
 	@FXML
 	private void handleEditNotes() {
@@ -66,18 +78,32 @@ public class NoteModalController {
 	}
 
 	private void closeWindow() {
-		Stage stage = null;
-
-		if (editNotesButton != null && editNotesButton.getScene() != null) {
-			stage = (Stage) editNotesButton.getScene().getWindow();
-		} else if (interviewNotesArea != null && interviewNotesArea.getScene() != null) {
-			stage = (Stage) interviewNotesArea.getScene().getWindow();
-		} else if (aiTipsArea != null && aiTipsArea.getScene() != null) {
-			stage = (Stage) aiTipsArea.getScene().getWindow();
+		if (modalRoot != null && modalRoot.getParent() instanceof Pane parent) {
+			parent.getChildren().remove(modalRoot);
+			notifyClosed();
+			return;
 		}
 
-		if (stage != null) {
+		Window window = null;
+
+		if (editNotesButton != null && editNotesButton.getScene() != null) {
+			window = editNotesButton.getScene().getWindow();
+		} else if (interviewNotesArea != null && interviewNotesArea.getScene() != null) {
+			window = interviewNotesArea.getScene().getWindow();
+		} else if (aiTipsArea != null && aiTipsArea.getScene() != null) {
+			window = aiTipsArea.getScene().getWindow();
+		}
+
+		if (window instanceof Stage stage) {
 			stage.close();
+		}
+
+		notifyClosed();
+	}
+
+	private void notifyClosed() {
+		if (onCloseRequest != null) {
+			onCloseRequest.run();
 		}
 	}
 }

@@ -1,7 +1,9 @@
 package com.trackharbor.trackharbor.controllers;
 
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
+import javafx.scene.Parent;
 import javafx.scene.control.*;
 import javafx.scene.layout.*;
 import javafx.stage.Modality;
@@ -9,6 +11,7 @@ import javafx.stage.Stage;
 import javafx.scene.Scene;
 import javafx.geometry.Insets;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
@@ -20,11 +23,14 @@ public class NotesPageController {
     @FXML private TextField mainSearch;
     @FXML private VBox      cardsContainer;
     @FXML private Label     sectionCount;
+    @FXML private StackPane pageRoot;
 
     @FXML private Button addNoteBtn;
     @FXML private Button sortRecentBtn;
     @FXML private Button sortCompanyBtn;
     @FXML private Button sortStatusBtn;
+
+    private Parent activeModalOverlay;
 
     // in memory data model
 
@@ -77,6 +83,10 @@ public class NotesPageController {
 
         // TODO: when DB is ready load existing positions here and call renderCards("")
         // for now the list starts empty — user adds entries via the modal
+
+        if (sortRecentBtn != null) {
+            setActiveChip(sortRecentBtn);
+        }
 
         renderCards("");
 
@@ -318,7 +328,37 @@ public class NotesPageController {
 
 
     private void handleCardClick(String positionId, String companyName) {
-        System.out.println("Opened: " + companyName + " [id=" + positionId + "]");
+        if (pageRoot == null) {
+            return;
+        }
+
+        if (activeModalOverlay != null && activeModalOverlay.getParent() != null) {
+            activeModalOverlay.toFront();
+            return;
+        }
+
+        activeModalOverlay = null;
+
+        try {
+            FXMLLoader loader = new FXMLLoader(
+                getClass().getResource("/com/trackharbor/trackharbor/note-modal.fxml")
+            );
+            Parent modalOverlay = loader.load();
+
+            NoteModalController modalController = loader.getController();
+            if (modalController != null) {
+                modalController.setOnCloseRequest(() -> activeModalOverlay = null);
+            }
+
+            activeModalOverlay = modalOverlay;
+            pageRoot.getChildren().add(modalOverlay);
+            modalOverlay.toFront();
+        } catch (IOException ex) {
+            throw new IllegalStateException(
+                "Unable to open notes modal for position " + companyName + " [id=" + positionId + "]",
+                ex
+            );
+        }
     }
 
     // sort handlers
