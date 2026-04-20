@@ -15,12 +15,15 @@
 
 
 
-<BorderPane
+<StackPane
+        fx:id="pageRoot"
         xmlns="http://javafx.com/javafx/17"
         xmlns:fx="http://javafx.com/fxml/1"
         fx:controller="com.trackharbor.trackharbor.controllers.NotesPageController"
         stylesheets="@styles/notes-page-styles.css"
         styleClass="root-pane">
+
+    <BorderPane>
 
     <!--  left Sidebar  -->
     <left>
@@ -82,7 +85,7 @@
                 <HBox styleClass="section-label-row" alignment="CENTER_LEFT">
                     <Label text="RECENT" styleClass="section-label"/>
                     <Region HBox.hgrow="ALWAYS"/>
-                    <Label text="4 entries" styleClass="section-count"/>
+                    <Label fx:id="sectionCount" text="0 entries" styleClass="section-count"/>
                 </HBox>
 
                 <!-- cards -->
@@ -163,15 +166,19 @@
             <VBox styleClass="right-panel" prefWidth="300" spacing="20">
 
                 <!-- add note Button -->
-                <Button text="＋  Add Note" styleClass="add-btn" maxWidth="Infinity"/>
+                <Button fx:id="addNoteBtn"
+                        text="＋  Add Note"
+                        onAction="#handleAddNote"
+                        styleClass="add-btn"
+                        maxWidth="Infinity"/>
 
                 <!-- sort -->
                 <VBox styleClass="right-card" spacing="10">
                     <Label text="SORT BY" styleClass="right-card-title"/>
                     <HBox spacing="8">
-                        <Button text="Recent" styleClass="sort-chip"/>
-                        <Button text="Company" styleClass="sort-chip"/>
-                        <Button text="Role" styleClass="sort-chip"/>
+                        <Button fx:id="sortRecentBtn" text="Recent" onAction="#handleSortRecent" styleClass="sort-chip"/>
+                        <Button fx:id="sortCompanyBtn" text="Company" onAction="#handleSortCompany" styleClass="sort-chip"/>
+                        <Button fx:id="sortStatusBtn" text="Status" onAction="#handleSortStatus" styleClass="sort-chip"/>
                     </HBox>
                 </VBox>
 
@@ -220,4 +227,5 @@
         </HBox>
     </center>
 
-</BorderPane>
+    </BorderPane>
+</StackPane>
