@@ -37,8 +37,8 @@ public class DashboardPageController {
     private final int PAGE_SIZE = 5;
 
     private final String[] colors = {
-            "#FF69B4", "#800080", "#32CD32", "#FF0000",
-            "#0000FF", "#000000", "#FFD700"
+            "hotpink", "purple", "limegreen",
+            "red", "blue", "gold"
     };
 
     @FXML
@@ -70,13 +70,12 @@ public class DashboardPageController {
     // Pie Chart Data
     private void setupPieChart() {
         pieChart.getData().addAll(
-                new PieChart.Data("No response", 37),
-                new PieChart.Data("2nd Interview", 8),
-                new PieChart.Data("Waiting", 4),
+                new PieChart.Data("Interview", 10),
+                new PieChart.Data("OA", 14),
                 new PieChart.Data("Rejected", 20),
-                new PieChart.Data("Email Response", 14),
-                new PieChart.Data("Will Not Accept", 5),
-                new PieChart.Data("Job Offered", 2)
+                new PieChart.Data("Waiting", 37),
+                new PieChart.Data("Accepted", 2),
+                new PieChart.Data("Other", 7)
         );
     // Pie Chart Data Loop
         for (int i = 0; i < pieChart.getData().size(); i++) {

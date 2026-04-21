@@ -45,6 +45,10 @@
     -fx-font-size: 14px;
 }
 
+.legend-row {
+    -fx-alignment: center-left;
+}
+
 .chart-custom {
     -fx-background-color: #ffffff;
     -fx-background-radius: 16;
