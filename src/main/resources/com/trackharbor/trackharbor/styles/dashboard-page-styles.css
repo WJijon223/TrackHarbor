@@ -1,130 +1,113 @@
-.chart-pie { -fx-pie-color: transparent; }
+.chart-pie {
+    -fx-pie-color: transparent;
+}
 
-/*Root*/
+/* Root shell mirrors the table page background and typography. */
 .root {
-    -fx-background-color: linear-gradient(to bottom right, #eef2f7, #6b7885);
+    -fx-background-color: #f0ebff;
     -fx-font-family: "Segoe UI", "Inter", sans-serif;
 }
 
-/*Menu Bar*/
+/* Menu bar styled as the same elevated white card used on table page. */
 .menu-bar-custom {
-    -fx-background-color: rgb(217, 190, 255);
+    -fx-background-color: #ffffff;
     -fx-padding: 12 20;
-    -fx-background-radius: 0 0 18 18;
-    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.25), 20, 0.3, 0, 4);
+    -fx-background-radius: 0 0 16 16;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.07), 12, 0, 0, 3);
 }
 
 .menu-bar-custom .label {
-    -fx-text-fill: #111827;
-    -fx-font-size: 20px;
-    -fx-font-weight: 600;
+    -fx-text-fill: #59168b;
+    -fx-font-size: 15px;
+    -fx-font-weight: 700;
 }
 
 .menu:hover {
-    -fx-background-color: rgba(255,255,255,0.5);
+    -fx-background-color: #f3e8ff;
     -fx-background-radius: 8;
 }
 
-
-/*Layout*/
-.main-content {
-    -fx-alignment: center;
-    -fx-spacing: 40;
-}
-
-/*Legend*/
-.legend-box {
-    -fx-background-color: #ffffff;
-    -fx-background-radius: 15;
-    -fx-padding: 20;
-    -fx-spacing: 35;
-
-    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.08), 15, 0.2, 0, 4);
-}
-
-/*Legend Text*/
 .label {
-    -fx-text-fill: #374151;
+    -fx-text-fill: #4a5565;
     -fx-font-size: 14px;
 }
 
-/*Chart Container*/
-.chart-custom {
-    -fx-background-color: white;
-    -fx-background-radius: 15;
-    -fx-padding: 20;
-
-    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.08), 15, 0.2, 0, 4);
-}
-
-
-.chart-title {
-    -fx-text-fill: #111827;
-    -fx-font-size: 18px;
-    -fx-font-weight: bold;
-}
-
-/*Pie Chart Labels*/
-.chart-pie-label {
-    -fx-fill: #374151;
-    -fx-font-size: 12px;
-}
-
 .legend-box {
-    -fx-background-color: #f9dcdc;
-    -fx-background-radius: 15;
+    -fx-background-color: #ffffff;
+    -fx-background-radius: 16;
     -fx-padding: 20;
     -fx-spacing: 20;
-    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.08), 15, 0.2, 0, 4);
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.07), 16, 0, 0, 4);
 }
 
 .legend-box .label {
+    -fx-text-fill: #4a5565;
     -fx-font-size: 14px;
-    -fx-text-fill: #374151;
 }
 
 .chart-custom {
-    -fx-background-color: white;
-    -fx-background-radius: 15;
+    -fx-background-color: #ffffff;
+    -fx-background-radius: 16;
     -fx-padding: 20;
-    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.08), 15, 0.2, 0, 4);
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.07), 16, 0, 0, 4);
 }
-/*Details Panel*/
+
+.chart-pie-label {
+    -fx-fill: #4a5565;
+    -fx-font-size: 12px;
+}
+
 .details-panel {
-    -fx-background-color: #d9beff;
-    -fx-background-radius: 15 0 0 15;
-    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.15), 20, 0.2, -4, 0);
+    -fx-background-color: #ffffff;
+    -fx-background-radius: 16 0 0 16;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.12), 20, 0.2, -4, 0);
+}
+
+.details-header {
+    -fx-padding: 14 16 0 16;
 }
 
 .details-title {
-    -fx-font-size: 20px;
-    -fx-font-weight: bold;
+    -fx-font-size: 22px;
+    -fx-font-weight: 700;
+    -fx-text-fill: #000000;
 }
 
 .details-count {
-    -fx-font-size: 16px;
+    -fx-font-size: 14px;
+    -fx-font-weight: 600;
+    -fx-text-fill: #9810fa;
+}
+
+.details-item {
+    -fx-font-size: 14px;
+    -fx-text-fill: #4a5565;
+}
+
+.details-scroll {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+}
+
+.details-scroll > .viewport {
+    -fx-background-color: transparent;
+}
+
+.details-nav {
+    -fx-padding: 10 16 16 16;
+}
+
+.details-nav-button {
+    -fx-background-color: #6e11b0;
     -fx-text-fill: #ffffff;
-}
-/*Next & Back Buttons*/
-#nextButton {
-    -fx-background-color: #4F46E5;
-    -fx-text-fill: white;
-    -fx-padding: 8 20;
-    -fx-background-radius: 8;
+    -fx-padding: 11 26;
+    -fx-font-size: 14px;
+    -fx-font-weight: 700;
+    -fx-background-radius: 9999;
+    -fx-cursor: hand;
 }
 
-#nextButton:hover {
-    -fx-background-color: #4338CA;
-}
-
-#backButton {
-    -fx-background-color: #4F46E5;
-    -fx-text-fill: white;
-    -fx-padding: 8 20;
-    -fx-background-radius: 8;
-}
-
-#backButton:hover {
-    -fx-background-color: #4338CA;
+.details-nav-button:hover {
+    -fx-background-color: #59168b;
 }
 
