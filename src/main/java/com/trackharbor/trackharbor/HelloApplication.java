@@ -18,6 +18,7 @@ public class HelloApplication extends Application {
         Scene scene = new Scene(fxmlLoader.load(), 900, 600);
         stage.setTitle("TrackHarbor");
         stage.setScene(scene);
+        stage.setMaximized(true);
         stage.show();
     }
 
