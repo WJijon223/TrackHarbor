@@ -5,18 +5,26 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.CheckBoxTableCell;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
 public class TablePageController implements Initializable {
 
+    @FXML private Pane logoPane;
     @FXML private TableView<Application> applicationsTable;
     @FXML private TableColumn<Application, String> nameColumn;
     @FXML private TableColumn<Application, String> linkColumn;
@@ -179,5 +187,17 @@ public class TablePageController implements Initializable {
         );
 
         applicationsTable.setItems(data);
+    }
+
+    @FXML
+    private void handleLogoClick(MouseEvent event) {
+        try {
+            Parent root = FXMLLoader.load(getClass().getResource("/com/trackharbor/trackharbor/dashboard-page.fxml"));
+            Stage stage = (Stage) logoPane.getScene().getWindow();
+            stage.setScene(new Scene(root));
+            stage.show();
+        } catch (IOException e) {
+            throw new RuntimeException("Failed to load dashboard page.", e);
+        }
     }
 }
