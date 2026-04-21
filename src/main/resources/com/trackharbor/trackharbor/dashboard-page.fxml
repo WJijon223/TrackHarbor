@@ -5,130 +5,90 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.shape.Circle?>
 
-<?import javafx.scene.control.ScrollPane?>
-<AnchorPane fx:id="rootPane"
-            stylesheets="@styles/dashboard-page-styles.css"
-            xmlns="http://javafx.com/javafx/21"
-            xmlns:fx="http://javafx.com/fxml/1"
-            fx:controller="com.trackharbor.trackharbor.controllers.DashboardPageController">
+<AnchorPane fx:id="rootPane" stylesheets="@styles/dashboard-page-styles.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.trackharbor.trackharbor.controllers.DashboardPageController">
 
     <children>
 
         <!-- Top Menu Bar -->
-        <MenuBar fx:id="menuBar" styleClass="menu-bar-custom">
+        <MenuBar fx:id="menuBar" layoutX="20.0" styleClass="menu-bar-custom">
             <menus>
-                <Menu text="Dashboard"/>
-                <Menu text="Table"/>
-                <Menu text="Notes"/>
-                <Menu text="Logout"/>
+                <Menu text="Dashboard" />
+                <Menu text="Table" />
+                <Menu text="Notes" />
+                <Menu text="Logout" />
             </menus>
         </MenuBar>
 
         <!-- Main horizontal layout -->
-        <HBox spacing="40"
-              AnchorPane.topAnchor="80"
-              AnchorPane.leftAnchor="20"
-              AnchorPane.rightAnchor="320"
-              AnchorPane.bottomAnchor="20">
+        <HBox spacing="40" AnchorPane.bottomAnchor="20" AnchorPane.leftAnchor="20" AnchorPane.rightAnchor="320" AnchorPane.topAnchor="80">
 
 
         <!-- Legend (Left Side) -->
-            <VBox fx:id="legendBox"
-                  prefWidth="220"
-                  HBox.hgrow="NEVER"
-                  spacing="20"
-                  styleClass="legend-box">
+            <VBox fx:id="legendBox" prefWidth="220" spacing="20" styleClass="legend-box" HBox.hgrow="NEVER">
 
-                <HBox spacing="10">
-                    <Circle radius="8" fill="#FF69B4" stroke="black" strokeWidth="1.5"/>
-                    <Label text="No response"/>
+                <HBox spacing="10" styleClass="legend-row">
+                    <Circle fill="#FF69B4" radius="8" stroke="black" strokeWidth="1.5" />
+                    <Label text="Interview" />
                 </HBox>
 
-                <HBox spacing="10">
-                    <Circle radius="8" fill="#800080" stroke="black" strokeWidth="1.5"/>
-                    <Label text="2nd Interview"/>
+                <HBox spacing="10" styleClass="legend-row">
+                    <Circle fill="#800080" radius="8" stroke="black" strokeWidth="1.5" />
+                    <Label text="OA" />
                 </HBox>
 
-                <HBox spacing="10">
-                    <Circle radius="8" fill="#32CD32" stroke="black" strokeWidth="1.5"/>
-                    <Label text="Waiting"/>
+                <HBox spacing="10" styleClass="legend-row">
+                    <Circle fill="#32CD32" radius="8" stroke="black" strokeWidth="1.5" />
+                    <Label text="Rejected" />
                 </HBox>
 
-                <HBox spacing="10">
-                    <Circle radius="8" fill="#FF0000" stroke="black" strokeWidth="1.5"/>
-                    <Label text="Rejected"/>
+                <HBox spacing="10" styleClass="legend-row">
+                    <Circle fill="#FF0000" radius="8" stroke="black" strokeWidth="1.5" />
+                    <Label text="Waiting" />
                 </HBox>
 
-                <HBox spacing="10">
-                    <Circle radius="8" fill="#0000FF" stroke="black" strokeWidth="1.5"/>
-                    <Label text="Email Response"/>
+                <HBox spacing="10" styleClass="legend-row">
+                    <Circle fill="#0000FF" radius="8" stroke="black" strokeWidth="1.5" />
+                    <Label text="Accepted" />
                 </HBox>
 
-                <HBox spacing="10">
-                    <Circle radius="8" fill="#000000" stroke="black" strokeWidth="1.5"/>
-                    <Label text="Will Not Accept"/>
-                </HBox>
-
-                <HBox spacing="10">
-                    <Circle radius="8" fill="#FFD700" stroke="black" strokeWidth="1.5"/>
-                    <Label text="Job Offered"/>
+                <HBox spacing="10" styleClass="legend-row">
+                    <Circle fill="#FFD700" radius="8" stroke="black" strokeWidth="1.5" />
+                    <Label text="Other" />
                 </HBox>
 
             </VBox>
 
             <!-- Chart Container (Center) -->
-            <StackPane fx:id="chartContainer"
-                       HBox.hgrow="ALWAYS"
-                        styleClass="chart-custom">
+            <StackPane fx:id="chartContainer" styleClass="chart-custom" HBox.hgrow="ALWAYS">
 
-                <PieChart fx:id="pieChart"
-                          prefWidth="400"
-                          prefHeight="400"
-                          maxWidth="Infinity"
-                          maxHeight="Infinity"
-                          labelsVisible="false"
-                          legendVisible="false"/>
+                <PieChart fx:id="pieChart" labelsVisible="false" legendVisible="false" maxHeight="Infinity" maxWidth="Infinity" prefHeight="400" prefWidth="400" />
 
-                <Circle fx:id="donutHole"
-                        fill="white"
-                        stroke="lightgray"
-                        strokeWidth="2"
-                        radius="90"/>
+                <Circle fx:id="donutHole" fill="white" radius="90" stroke="lightgray" strokeWidth="2" />
             </StackPane>
 
         </HBox>
 
         <!-- Slide-in Details Panel -->
-        <VBox fx:id="detailsPanel"
-              prefWidth="300"
-              spacing="20"
-              styleClass="details-panel"
-              AnchorPane.topAnchor="70"
-              AnchorPane.bottomAnchor="20"
-              AnchorPane.rightAnchor="0"
-              translateX="300">
+        <VBox fx:id="detailsPanel" prefWidth="300" spacing="20" styleClass="details-panel" translateX="300" AnchorPane.bottomAnchor="20" AnchorPane.rightAnchor="0" AnchorPane.topAnchor="70">
             <VBox spacing="5" styleClass="details-header">
-            <Label fx:id="detailsTitle" styleClass="details-title" text="Details"/>
-            <Label fx:id="detailsCount" styleClass="details-count" text="Count: 0"/>
+            <Label fx:id="detailsTitle" styleClass="details-title" text="Details" />
+            <Label fx:id="detailsCount" styleClass="details-count" text="Count: 0" />
             </VBox>
             <ScrollPane fitToWidth="true" styleClass="details-scroll">
-                <VBox fx:id="detailsList" spacing="10" style="-fx-padding: 10 15 10 15;"/>
+                <VBox fx:id="detailsList" spacing="10" style="-fx-padding: 10 15 10 15;" />
             </ScrollPane>
 
             <!-- Next & Back Buttons -->
             <HBox alignment="center" spacing="10" styleClass="details-nav">
-                <Button fx:id="backButton"
-                        text="Back"
-                        styleClass="details-nav-button"/>
-                <Button fx:id="nextButton"
-                        text="Next"
-                        styleClass="details-nav-button"/>
+                <Button fx:id="backButton" styleClass="details-nav-button" text="Back" />
+                <Button fx:id="nextButton" styleClass="details-nav-button" text="Next" />
             </HBox>
 
         </VBox>
