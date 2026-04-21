@@ -137,8 +137,8 @@ public class DashboardPageController {
         for (int i = start; i < end; i++) {
             CompanyEntry entry = currentEntries.get(i);
 
-            Label item = new Label(entry.getName() + " — " + entry.getDate());
-            item.setStyle("-fx-font-size: 14px;");
+            Label item = new Label(entry.getName() + " - " + entry.getDate());
+            item.getStyleClass().add("details-item");
             detailsList.getChildren().add(item);
         }
 

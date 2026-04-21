@@ -113,22 +113,22 @@
               AnchorPane.bottomAnchor="20"
               AnchorPane.rightAnchor="0"
               translateX="300">
-            <VBox spacing="5" style="-fx-padding: 10 15 0 15;">
+            <VBox spacing="5" styleClass="details-header">
             <Label fx:id="detailsTitle" styleClass="details-title" text="Details"/>
             <Label fx:id="detailsCount" styleClass="details-count" text="Count: 0"/>
             </VBox>
-            <ScrollPane fitToWidth="true" style="-fx-background-color: transparent;">
+            <ScrollPane fitToWidth="true" styleClass="details-scroll">
                 <VBox fx:id="detailsList" spacing="10" style="-fx-padding: 10 15 10 15;"/>
             </ScrollPane>
 
             <!-- Next & Back Buttons -->
-            <HBox alignment="center" spacing="10" style="-fx-padding: 10;">
+            <HBox alignment="center" spacing="10" styleClass="details-nav">
                 <Button fx:id="backButton"
                         text="Back"
-                        style="-fx-font-size: 14px; -fx-background-radius: 8;"/>
+                        styleClass="details-nav-button"/>
                 <Button fx:id="nextButton"
                         text="Next"
-                        style="-fx-font-size: 14px; -fx-background-radius: 8;"/>
+                        styleClass="details-nav-button"/>
             </HBox>
 
         </VBox>
