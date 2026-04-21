@@ -9,14 +9,12 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
 import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.CheckBoxTableCell;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
-import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
@@ -193,9 +191,7 @@ public class TablePageController implements Initializable {
     private void handleLogoClick(MouseEvent event) {
         try {
             Parent root = FXMLLoader.load(getClass().getResource("/com/trackharbor/trackharbor/dashboard-page.fxml"));
-            Stage stage = (Stage) logoPane.getScene().getWindow();
-            stage.setScene(new Scene(root));
-            stage.show();
+            logoPane.getScene().setRoot(root);
         } catch (IOException e) {
             throw new RuntimeException("Failed to load dashboard page.", e);
         }

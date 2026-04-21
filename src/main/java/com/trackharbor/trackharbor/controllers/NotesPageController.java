@@ -449,9 +449,7 @@ public class NotesPageController {
             Parent root = FXMLLoader.load(
                 getClass().getResource("/com/trackharbor/trackharbor/dashboard-page.fxml")
             );
-            Stage stage = (Stage) pageRoot.getScene().getWindow();
-            stage.setScene(new Scene(root));
-            stage.show();
+            pageRoot.getScene().setRoot(root);
         } catch (IOException e) {
             throw new RuntimeException("Failed to load dashboard page.", e);
         }
