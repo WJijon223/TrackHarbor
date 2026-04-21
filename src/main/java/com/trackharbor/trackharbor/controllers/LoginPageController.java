@@ -1,12 +1,18 @@
 package com.trackharbor.trackharbor.controllers;
 
+import javafx.fxml.FXMLLoader;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Hyperlink;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.stage.Stage;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -45,33 +51,17 @@ public class LoginPageController implements Initializable {
 
     /**
      * Triggered when the Submit button is clicked.
-     * Add your authentication logic here.
+     * Redirects the user to the dashboard page.
      */
     @FXML
     private void handleSubmit(ActionEvent event) {
-        String email    = emailField.getText().trim();
-        String password = passwordField.getText();
-
-        // ── Basic validation ──
-        if (email.isEmpty() || password.isEmpty()) {
-            showError("Please fill in all fields.");
-            return;
+        try {
+            Parent dashboardRoot = FXMLLoader.load(getClass().getResource("/com/trackharbor/trackharbor/dashboard-page.fxml"));
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            stage.getScene().setRoot(dashboardRoot);
+        } catch (IOException e) {
+            throw new RuntimeException("Failed to load dashboard page.", e);
         }
-
-        if (!isValidEmail(email)) {
-            showError("Please enter a valid email address.");
-            return;
-        }
-
-        // ── TODO: Replace with your real authentication call ──
-        // boolean success = AuthService.login(email, password);
-        // if (success) {
-        //     navigateToDashboard();
-        // } else {
-        //     showError("Invalid email or password.");
-        // }
-
-        System.out.println("Login attempted with email: " + email);
     }
 
     /**

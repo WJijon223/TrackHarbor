@@ -438,4 +438,20 @@ public class NotesPageController {
             default -> "badge-gray";
         };
     }
+
+    @FXML
+    private void handleDashboardNav() {
+        if (pageRoot == null || pageRoot.getScene() == null) {
+            return;
+        }
+
+        try {
+            Parent root = FXMLLoader.load(
+                getClass().getResource("/com/trackharbor/trackharbor/dashboard-page.fxml")
+            );
+            pageRoot.getScene().setRoot(root);
+        } catch (IOException e) {
+            throw new RuntimeException("Failed to load dashboard page.", e);
+        }
+    }
 }

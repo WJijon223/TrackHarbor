@@ -1,15 +1,22 @@
 package com.trackharbor.trackharbor.controllers;
 
 import javafx.animation.*;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.chart.PieChart;
+import javafx.stage.Stage;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.shape.Circle;
 import javafx.util.Duration;
 
+import java.io.IOException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -17,6 +24,7 @@ import java.util.List;
 
 public class DashboardPageController {
 
+    @FXML private AnchorPane rootPane;
     @FXML private PieChart pieChart;
     @FXML private StackPane chartContainer;
     @FXML private Circle donutHole;
@@ -213,6 +221,37 @@ public class DashboardPageController {
         }
     }
 
+
+    // Navigation Handlers
+    @FXML
+    private void handleTableNav(ActionEvent event) {
+        try {
+            Parent root = FXMLLoader.load(getClass().getResource("/com/trackharbor/trackharbor/table-page.fxml"));
+            rootPane.getScene().setRoot(root);
+        } catch (IOException e) {
+            throw new RuntimeException("Failed to load table page.", e);
+        }
+    }
+
+    @FXML
+    private void handleNotesNav(ActionEvent event) {
+        try {
+            Parent root = FXMLLoader.load(getClass().getResource("/com/trackharbor/trackharbor/notes-page.fxml"));
+            rootPane.getScene().setRoot(root);
+        } catch (IOException e) {
+            throw new RuntimeException("Failed to load notes page.", e);
+        }
+    }
+
+    @FXML
+    private void handleLogout(ActionEvent event) {
+        try {
+            Parent root = FXMLLoader.load(getClass().getResource("/com/trackharbor/trackharbor/login-page.fxml"));
+            rootPane.getScene().setRoot(root);
+        } catch (IOException e) {
+            throw new RuntimeException("Failed to load login page.", e);
+        }
+    }
 
     // Sample Data Class, Probably Will Be Removed After Firebase
     public static class CompanyEntry {

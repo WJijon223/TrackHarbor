@@ -24,7 +24,7 @@
                     <children>
                         <HBox alignment="CENTER_LEFT" spacing="16.0" HBox.hgrow="ALWAYS">
                             <children>
-                                <Pane prefHeight="54.0" prefWidth="54.0" style="-fx-background-color: #f3e8ff; -fx-background-radius: 14;">
+                                <Pane fx:id="logoPane" prefHeight="54.0" prefWidth="54.0" style="-fx-background-color: #f3e8ff; -fx-background-radius: 14; -fx-cursor: hand;" onMouseClicked="#handleLogoClick">
                                     <children>
                                         <Group layoutX="10.0" layoutY="12.0">
                                             <transforms>
