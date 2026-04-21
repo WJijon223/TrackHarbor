@@ -227,9 +227,7 @@ public class DashboardPageController {
     private void handleTableNav(ActionEvent event) {
         try {
             Parent root = FXMLLoader.load(getClass().getResource("/com/trackharbor/trackharbor/table-page.fxml"));
-            Stage stage = (Stage) rootPane.getScene().getWindow();
-            stage.setScene(new Scene(root));
-            stage.show();
+            rootPane.getScene().setRoot(root);
         } catch (IOException e) {
             throw new RuntimeException("Failed to load table page.", e);
         }
@@ -239,9 +237,7 @@ public class DashboardPageController {
     private void handleNotesNav(ActionEvent event) {
         try {
             Parent root = FXMLLoader.load(getClass().getResource("/com/trackharbor/trackharbor/notes-page.fxml"));
-            Stage stage = (Stage) rootPane.getScene().getWindow();
-            stage.setScene(new Scene(root));
-            stage.show();
+            rootPane.getScene().setRoot(root);
         } catch (IOException e) {
             throw new RuntimeException("Failed to load notes page.", e);
         }
@@ -251,9 +247,7 @@ public class DashboardPageController {
     private void handleLogout(ActionEvent event) {
         try {
             Parent root = FXMLLoader.load(getClass().getResource("/com/trackharbor/trackharbor/login-page.fxml"));
-            Stage stage = (Stage) rootPane.getScene().getWindow();
-            stage.setScene(new Scene(root));
-            stage.show();
+            rootPane.getScene().setRoot(root);
         } catch (IOException e) {
             throw new RuntimeException("Failed to load login page.", e);
         }

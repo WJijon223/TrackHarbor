@@ -58,8 +58,7 @@ public class LoginPageController implements Initializable {
         try {
             Parent dashboardRoot = FXMLLoader.load(getClass().getResource("/com/trackharbor/trackharbor/dashboard-page.fxml"));
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
-            stage.setScene(new Scene(dashboardRoot));
-            stage.show();
+            stage.getScene().setRoot(dashboardRoot);
         } catch (IOException e) {
             throw new RuntimeException("Failed to load dashboard page.", e);
         }

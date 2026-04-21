@@ -23,11 +23,11 @@
         </HBox>
 
         <!-- Main horizontal layout -->
-        <HBox spacing="40" AnchorPane.bottomAnchor="20" AnchorPane.leftAnchor="20" AnchorPane.rightAnchor="320" AnchorPane.topAnchor="80">
+        <HBox spacing="40" AnchorPane.bottomAnchor="30" AnchorPane.leftAnchor="30" AnchorPane.rightAnchor="330" AnchorPane.topAnchor="90">
 
 
         <!-- Legend (Left Side) -->
-            <VBox fx:id="legendBox" prefWidth="220" spacing="20" styleClass="legend-box" HBox.hgrow="NEVER">
+            <VBox fx:id="legendBox" prefWidth="240" spacing="24" styleClass="legend-box" HBox.hgrow="NEVER">
 
                 <HBox spacing="10" styleClass="legend-row">
                     <Circle fill="#FF69B4" radius="8" stroke="black" strokeWidth="1.5" />
