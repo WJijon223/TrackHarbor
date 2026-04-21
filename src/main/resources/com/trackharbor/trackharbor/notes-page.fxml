@@ -61,7 +61,7 @@
 
                 <!-- top Bar -->
                 <HBox styleClass="top-bar" alignment="CENTER_LEFT" spacing="8">
-                    <Label text="Dashboard" styleClass="crumb-inactive"/>
+                    <Label text="Dashboard" styleClass="crumb-inactive" onMouseClicked="#handleDashboardNav"/>
                     <Label text="›" styleClass="crumb-sep"/>
                     <Label text="My Notes" styleClass="crumb-active"/>
                     <Region HBox.hgrow="ALWAYS"/>
