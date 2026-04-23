@@ -34,3 +34,6 @@ build/
 ### OS Files ###
 .DS_Store
 Thumbs.db
+
+# Firebase service account (DO NOT COMMIT)
+/src/main/java/com/trackharbor/trackharbor/config/trackharbor-firebase-service-account.json
