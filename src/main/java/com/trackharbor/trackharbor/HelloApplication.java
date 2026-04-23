@@ -16,6 +16,7 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.util.List;
 
+// This is a test comment
 public class HelloApplication extends Application {
 
     @Override
