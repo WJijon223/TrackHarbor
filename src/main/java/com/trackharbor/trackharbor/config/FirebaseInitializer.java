@@ -8,6 +8,7 @@ import com.google.firebase.cloud.FirestoreClient;
 
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 
 public class FirebaseInitializer {
     private static Firestore firestore;
@@ -19,8 +20,10 @@ public class FirebaseInitializer {
 
         try {
             // Option 1: explicit local JSON path
-            FileInputStream serviceAccount =
-                    new FileInputStream("config/firebase-service-account.json");
+            InputStream serviceAccount =
+                    FirebaseInitializer.class
+                            .getClassLoader()
+                            .getResourceAsStream("trackharbor-firebase-service-account.json");
 
             FirebaseOptions options = FirebaseOptions.builder()
                     .setCredentials(GoogleCredentials.fromStream(serviceAccount))
