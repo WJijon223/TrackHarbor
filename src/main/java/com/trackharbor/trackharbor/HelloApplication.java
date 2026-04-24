@@ -25,7 +25,7 @@ public class HelloApplication extends Application {
 
         FirebaseInitializer.initialize();
 
-        String userId = "testUser123";
+        String userId = "XFizAqdevuRI1zA63n6XV2goaIB2";
 
         UserService userService = new UserService();
         PositionService positionService = new PositionService();
