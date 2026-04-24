@@ -56,11 +56,9 @@ public class LoginPageController implements Initializable {
         }
 
         try {
-            // 🔐 Authenticate user
             String userId = authService.signInWithEmailAndPassword(email, password);
             System.out.println("UID: " + userId);
 
-            // 📦 Fetch user profile from Firestore
             UserProfile user = userService.getUserById(userId);
 
             System.out.println("=== SIGNED IN USER ===");
@@ -70,7 +68,6 @@ public class LoginPageController implements Initializable {
                 System.out.println("Name: " + user.getFirstName() + " " + user.getLastName());
                 System.out.println("Email: " + user.getEmail());
 
-                // ✅ Set session
                 SessionManager.setCurrentUser(user);
                 System.out.println("Session set for user: " + user.getId());
 
@@ -80,7 +77,6 @@ public class LoginPageController implements Initializable {
                 return;
             }
 
-            // 🚀 Navigate to dashboard
             Parent dashboardRoot = FXMLLoader.load(
                     getClass().getResource("/com/trackharbor/trackharbor/dashboard-page.fxml")
             );
