@@ -3,6 +3,7 @@ package com.trackharbor.trackharbor.controllers;
 import com.trackharbor.trackharbor.model.UserProfile;
 import com.trackharbor.trackharbor.service.AuthService;
 import com.trackharbor.trackharbor.service.UserService;
+import com.trackharbor.trackharbor.session.SessionManager;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -55,8 +56,11 @@ public class LoginPageController implements Initializable {
         }
 
         try {
+            // 🔐 Authenticate user
             String userId = authService.signInWithEmailAndPassword(email, password);
+            System.out.println("UID: " + userId);
 
+            // 📦 Fetch user profile from Firestore
             UserProfile user = userService.getUserById(userId);
 
             System.out.println("=== SIGNED IN USER ===");
@@ -65,10 +69,18 @@ public class LoginPageController implements Initializable {
                 System.out.println("ID: " + user.getId());
                 System.out.println("Name: " + user.getFirstName() + " " + user.getLastName());
                 System.out.println("Email: " + user.getEmail());
+
+                // ✅ Set session
+                SessionManager.setCurrentUser(user);
+                System.out.println("Session set for user: " + user.getId());
+
             } else {
-                System.out.println("User authenticated, but profile was not found in Firestore.");
+                System.out.println("User authenticated, but profile not found in Firestore.");
+                showError("User profile not found.");
+                return;
             }
 
+            // 🚀 Navigate to dashboard
             Parent dashboardRoot = FXMLLoader.load(
                     getClass().getResource("/com/trackharbor/trackharbor/dashboard-page.fxml")
             );
