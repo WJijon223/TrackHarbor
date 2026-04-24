@@ -37,3 +37,6 @@ Thumbs.db
 
 # Firebase service account (DO NOT COMMIT)
 /src/main/resources/trackharbor-firebase-service-account.json
+
+@ Environment variables
+.env

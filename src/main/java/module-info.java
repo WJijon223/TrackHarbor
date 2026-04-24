@@ -7,6 +7,9 @@ module com.trackharbor.trackharbor {
     requires com.google.api.apicommon;
     requires google.cloud.core;
     requires com.google.auth;
+    requires io.github.cdimascio.dotenv.java;
+    requires com.google.gson;
+    requires java.net.http;
 
     opens com.trackharbor.trackharbor to javafx.fxml;
     opens com.trackharbor.trackharbor.controllers to javafx.fxml;
