@@ -10,6 +10,7 @@ module com.trackharbor.trackharbor {
     requires io.github.cdimascio.dotenv.java;
     requires com.google.gson;
     requires java.net.http;
+    requires java.sql;
 
     opens com.trackharbor.trackharbor to javafx.fxml;
     opens com.trackharbor.trackharbor.controllers to javafx.fxml;

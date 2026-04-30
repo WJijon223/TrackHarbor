@@ -24,7 +24,9 @@
                     <children>
                         <HBox alignment="CENTER_LEFT" spacing="16.0" HBox.hgrow="ALWAYS">
                             <children>
-                                <Pane fx:id="logoPane" prefHeight="54.0" prefWidth="54.0" style="-fx-background-color: #f3e8ff; -fx-background-radius: 14; -fx-cursor: hand;" onMouseClicked="#handleLogoClick">
+                                <Pane fx:id="logoPane" prefHeight="54.0" prefWidth="54.0"
+                                      style="-fx-background-color: #f3e8ff; -fx-background-radius: 14; -fx-cursor: hand;"
+                                      onMouseClicked="#handleLogoClick">
                                     <children>
                                         <Group layoutX="10.0" layoutY="12.0">
                                             <transforms>
@@ -49,8 +51,20 @@
                                 </VBox>
                             </children>
                         </HBox>
-                        <Button mnemonicParsing="false" text="+ New Application"
-                                style="-fx-background-color: #6E11B0; -fx-background-radius: 9999; -fx-font-size: 14; -fx-font-weight: bold; -fx-padding: 13 30; -fx-text-fill: #ffffff; -fx-cursor: hand;" />
+                        <HBox alignment="CENTER_RIGHT" spacing="12.0">
+                            <children>
+                                <Button fx:id="backToDashboardButton"
+                                        mnemonicParsing="false"
+                                        text="← Dashboard"
+                                        onAction="#handleBackToDashboard"
+                                        style="-fx-background-color: transparent; -fx-border-color: #6E11B0; -fx-border-radius: 9999; -fx-background-radius: 9999; -fx-font-size: 13; -fx-font-weight: bold; -fx-padding: 9 20; -fx-text-fill: #6E11B0; -fx-cursor: hand;" />
+                                <Button fx:id="newApplicationButton"
+                                        mnemonicParsing="false"
+                                        text="+ New Application"
+                                        onAction="#handleNewApplication"
+                                        style="-fx-background-color: #6E11B0; -fx-background-radius: 9999; -fx-font-size: 14; -fx-font-weight: bold; -fx-padding: 13 30; -fx-text-fill: #ffffff; -fx-cursor: hand;" />
+                            </children>
+                        </HBox>
                     </children>
                     <padding>
                         <Insets left="28.0" right="28.0" top="16.0" bottom="16.0" />
@@ -93,7 +107,7 @@
             </padding>
         </VBox>
 
-        <VBox alignment="CENTER" prefHeight="700.0" prefWidth="1100.0"
+        <VBox fx:id="modalOverlay" alignment="CENTER" prefHeight="700.0" prefWidth="1100.0"
               style="-fx-background-color: rgba(0,0,0,0.45);" visible="false">
             <children>
                 <VBox maxWidth="500.0" spacing="24.0"
@@ -129,19 +143,19 @@
                                 <VBox spacing="6.0">
                                     <Label text="Company Name"
                                            style="-fx-text-fill: #59168B; -fx-font-weight: bold; -fx-font-size: 13;" />
-                                    <TextField promptText="e.g. Capital One"
+                                    <TextField fx:id="companyNameField" promptText="e.g. Capital One"
                                                style="-fx-background-radius: 10; -fx-padding: 10; -fx-border-color: #e5e7eb; -fx-border-radius: 10;" />
                                 </VBox>
                                 <VBox spacing="6.0">
                                     <Label text="Position"
                                            style="-fx-text-fill: #59168B; -fx-font-weight: bold; -fx-font-size: 13;" />
-                                    <TextField promptText="e.g. SWE Internship"
+                                    <TextField fx:id="positionField" promptText="e.g. SWE Internship"
                                                style="-fx-background-radius: 10; -fx-padding: 10; -fx-border-color: #e5e7eb; -fx-border-radius: 10;" />
                                 </VBox>
                                 <VBox spacing="6.0">
                                     <Label text="Link"
                                            style="-fx-text-fill: #59168B; -fx-font-weight: bold; -fx-font-size: 13;" />
-                                    <TextField promptText="https://"
+                                    <TextField fx:id="linkField" promptText="https://"
                                                style="-fx-background-radius: 10; -fx-padding: 10; -fx-border-color: #e5e7eb; -fx-border-radius: 10;" />
                                 </VBox>
                                 <HBox spacing="16.0">
@@ -149,19 +163,22 @@
                                         <VBox spacing="6.0" HBox.hgrow="ALWAYS">
                                             <Label text="Date Applied"
                                                    style="-fx-text-fill: #59168B; -fx-font-weight: bold; -fx-font-size: 13;" />
-                                            <TextField promptText="MM/DD/YYYY"
+                                            <TextField fx:id="dateField" promptText="MM/DD/YYYY"
                                                        style="-fx-background-radius: 10; -fx-padding: 10; -fx-border-color: #e5e7eb; -fx-border-radius: 10;" />
                                         </VBox>
                                         <VBox spacing="6.0" HBox.hgrow="ALWAYS">
                                             <Label text="Status"
                                                    style="-fx-text-fill: #59168B; -fx-font-weight: bold; -fx-font-size: 13;" />
-                                            <ComboBox promptText="Select status" maxWidth="Infinity"
+                                            <ComboBox fx:id="statusComboBox" promptText="Select status" maxWidth="Infinity"
                                                       style="-fx-background-radius: 10;">
                                                 <items>
                                                     <FXCollections fx:factory="observableArrayList">
+                                                        <String fx:value="Interview" />
+                                                        <String fx:value="OA" />
                                                         <String fx:value="Rejected" />
                                                         <String fx:value="Waiting" />
-                                                        <String fx:value="Interview" />
+                                                        <String fx:value="Accepted" />
+                                                        <String fx:value="Other" />
                                                     </FXCollections>
                                                 </items>
                                             </ComboBox>
@@ -173,10 +190,12 @@
 
                         <HBox alignment="CENTER_RIGHT" spacing="12.0">
                             <children>
-                                <Button mnemonicParsing="false" text="Cancel"
-                                        style="-fx-background-color: #f3f4f6; -fx-text-fill: #4A5565; -fx-background-radius: 9999; -fx-padding: 11 28; -fx-font-size: 14;" />
-                                <Button mnemonicParsing="false" text="Add Application"
-                                        style="-fx-background-color: #6E11B0; -fx-text-fill: #ffffff; -fx-background-radius: 9999; -fx-padding: 11 28; -fx-font-size: 14; -fx-font-weight: bold;" />
+                                <Button fx:id="cancelButton" mnemonicParsing="false" text="Cancel"
+                                        onAction="#handleCancelModal"
+                                        style="-fx-background-color: #f3f4f6; -fx-text-fill: #4A5565; -fx-background-radius: 9999; -fx-padding: 11 28; -fx-font-size: 14; -fx-cursor: hand;" />
+                                <Button fx:id="addApplicationButton" mnemonicParsing="false" text="Add Application"
+                                        onAction="#handleAddApplication"
+                                        style="-fx-background-color: #6E11B0; -fx-text-fill: #ffffff; -fx-background-radius: 9999; -fx-padding: 11 28; -fx-font-size: 14; -fx-font-weight: bold; -fx-cursor: hand;" />
                             </children>
                         </HBox>
 
