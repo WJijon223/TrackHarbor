@@ -1,13 +1,7 @@
 package com.trackharbor.trackharbor.service;
 
-import com.google.api.core.ApiFuture;
 import com.google.cloud.Timestamp;
-import com.google.cloud.firestore.CollectionReference;
-import com.google.cloud.firestore.DocumentReference;
-import com.google.cloud.firestore.DocumentSnapshot;
-import com.google.cloud.firestore.Firestore;
-import com.google.cloud.firestore.QueryDocumentSnapshot;
-import com.google.cloud.firestore.QuerySnapshot;
+import com.google.cloud.firestore.*;
 import com.trackharbor.trackharbor.config.FirebaseInitializer;
 import com.trackharbor.trackharbor.model.Note;
 
@@ -24,118 +18,204 @@ public class NoteService {
         this.db = FirebaseInitializer.getFirestore();
     }
 
-    public List<Note> getNotesForPosition(String userId, String positionId) {
-        List<Note> notes = new ArrayList<>();
+    // private helpers
 
-        try {
-            CollectionReference notesRef = db.collection("users")
-                    .document(userId)
-                    .collection("positions")
-                    .document(positionId)
-                    .collection("notes");
+    /**
+     * Returns the notes sub collection reference for a given user + position.
+     * Centralizes the Firestore path so every method stays consistent.
+     */
 
-            ApiFuture<QuerySnapshot> future = notesRef.get();
-            QuerySnapshot snapshot = future.get();
 
-            for (QueryDocumentSnapshot document : snapshot.getDocuments()) {
-                Note note = mapDocumentToNote(document);
-                notes.add(note);
-            }
+    private CollectionReference notesRef(String userId, String positionId) {
 
-            return notes;
+        return db.collection("users")
+                .document(userId)
+                .collection("positions")
+                .document(positionId)
+                .collection("notes");
+    }
 
-        } catch (Exception e) {
-            throw new RuntimeException("Failed to fetch notes for position: " + positionId, e);
+    /**
+     * validates that userId and positionId are non-null and non-blank.
+     * called at the top of every public method before touching Firestore.
+     */
+
+
+    private void validateParameters(String userId, String positionId) {
+        if (userId == null || userId.isBlank()) {
+            throw new IllegalArgumentException("User ID cannot be null or blank");
+        }
+        if (positionId == null || positionId.isBlank()) {
+            throw new IllegalArgumentException("Position ID cannot be null or blank");
         }
     }
 
-    public Note getNoteById(String userId, String positionId, String noteId) {
+    // read
+
+    /**
+     * Fetches all notes for a position, ordered oldest → newest by createdAt.
+     * Use this when displaying notes in the UI so they appear in creation order.
+     */
+
+
+    public List<Note> getNotesForPosition(String userId, String positionId) {
+        validateParameters(userId, positionId);
+
         try {
-            DocumentSnapshot document = db.collection("users")
-                    .document(userId)
-                    .collection("positions")
-                    .document(positionId)
-                    .collection("notes")
+            QuerySnapshot snapshot = notesRef(userId, positionId)
+                    .orderBy("createdAt", Query.Direction.ASCENDING)
+                    .get()
+                    .get();
+
+            List<Note> notes = new ArrayList<>();
+            for (QueryDocumentSnapshot doc : snapshot.getDocuments()) {
+                notes.add(mapDocumentToNote(doc));
+            }
+            return notes;
+
+        } catch (Exception e) {
+            throw new RuntimeException(
+                    "Failed to fetch notes for position: " + positionId, e);
+        }
+    }
+
+    /**
+     * Fetches a single note by its ID.
+     * Returns null if the note does not exist.
+     */
+
+
+    public Note getNoteById(String userId, String positionId, String noteId) {
+        validateParameters(userId, positionId);
+
+        if (noteId == null || noteId.isBlank()) {
+            throw new IllegalArgumentException("Note ID cannot be null or blank");
+        }
+
+        try {
+            DocumentSnapshot doc = notesRef(userId, positionId)
                     .document(noteId)
                     .get()
                     .get();
 
-            if (!document.exists()) {
-                return null;
-            }
-
-            return mapDocumentToNote(document);
+            return doc.exists() ? mapDocumentToNote(doc) : null;
 
         } catch (Exception e) {
             throw new RuntimeException("Failed to fetch note: " + noteId, e);
         }
     }
 
-    public String createNote(String userId, String positionId, Note note) {
+    /**
+     * Returns the number of notes for a given position.
+     * Used by NotesPageController to populate the note count pill on each card.
+     */
+
+
+    public int getNoteCountForPosition(String userId, String positionId) {
+        validateParameters(userId, positionId);
+
         try {
-            CollectionReference notesRef = db.collection("users")
-                    .document(userId)
-                    .collection("positions")
-                    .document(positionId)
-                    .collection("notes");
+            return notesRef(userId, positionId)
+                    .get()
+                    .get()
+                    .size();
 
-            DocumentReference newDocRef;
+        } catch (Exception e) {
+            throw new RuntimeException(
+                    "Failed to fetch note count for position: " + positionId, e);
+        }
+    }
 
-            if (note.getId() != null && !note.getId().isBlank()) {
-                newDocRef = notesRef.document(note.getId());
-            } else {
-                newDocRef = notesRef.document();
-            }
+    // create
+
+    /**
+     * Creates a new note under the given position.
+     * If note.getId() is set it uses that as the document ID,
+     * otherwise Firestore auto-generates one.
+     *
+     * @return the Firestore document ID of the newly created note
+     */
+
+
+    public String createNote(String userId, String positionId, Note note) {
+        validateParameters(userId, positionId);
+
+        if (note == null) {
+            throw new IllegalArgumentException("Note cannot be null");
+        }
+
+        try {
+            CollectionReference ref = notesRef(userId, positionId);
+
+            DocumentReference docRef = (note.getId() != null && !note.getId().isBlank())
+                    ? ref.document(note.getId())
+                    : ref.document();
 
             Map<String, Object> data = new HashMap<>();
             data.put("content", note.getContent());
             data.put("createdAt",
                     note.getCreatedAt() != null
                             ? Timestamp.ofTimeSecondsAndNanos(
-                            note.getCreatedAt().getEpochSecond(),
-                            note.getCreatedAt().getNano()
-                    )
+                                note.getCreatedAt().getEpochSecond(),
+                                note.getCreatedAt().getNano())
                             : Timestamp.now()
             );
 
-            newDocRef.set(data).get();
-            return newDocRef.getId();
+            docRef.set(data).get();
+            return docRef.getId();
 
         } catch (Exception e) {
-            throw new RuntimeException("Failed to create note for position: " + positionId, e);
+            throw new RuntimeException(
+                    "Failed to create note for position: " + positionId, e);
         }
     }
 
+    // update
+
+    /**
+     * Updates the content of an existing note.
+     * Only the content field is updated; createdAt is left unchanged.
+     *
+     * @throws IllegalArgumentException if note.getId() is null or blank
+     */
     public void updateNote(String userId, String positionId, Note note) {
+        validateParameters(userId, positionId);
+
+        if (note == null) {
+            throw new IllegalArgumentException("Note cannot be null");
+        }
+        if (note.getId() == null || note.getId().isBlank()) {
+            throw new IllegalArgumentException("Note ID is required for update");
+        }
+
         try {
-            if (note.getId() == null || note.getId().isBlank()) {
-                throw new IllegalArgumentException("Note ID is required for update.");
-            }
-
-            DocumentReference noteRef = db.collection("users")
-                    .document(userId)
-                    .collection("positions")
-                    .document(positionId)
-                    .collection("notes")
-                    .document(note.getId());
-
             Map<String, Object> data = new HashMap<>();
             data.put("content", note.getContent());
 
-            noteRef.update(data).get();
+            notesRef(userId, positionId)
+                    .document(note.getId())
+                    .update(data)
+                    .get();
 
         } catch (Exception e) {
             throw new RuntimeException("Failed to update note: " + note.getId(), e);
         }
     }
 
+    // delete
+
+    /**
+     * Permanently deletes a note from Firestore.
+     */
     public void deleteNote(String userId, String positionId, String noteId) {
+        validateParameters(userId, positionId);
+
+        if (noteId == null || noteId.isBlank()) {
+            throw new IllegalArgumentException("Note ID cannot be null or blank");
+        }
+
         try {
-            db.collection("users")
-                    .document(userId)
-                    .collection("positions")
-                    .document(positionId)
-                    .collection("notes")
+            notesRef(userId, positionId)
                     .document(noteId)
                     .delete()
                     .get();
@@ -145,13 +225,18 @@ public class NoteService {
         }
     }
 
-    private Note mapDocumentToNote(DocumentSnapshot document) {
+    // mapping
+
+    /**
+     * Maps a Firestore document snapshot to a Note model object.
+     */
+
+    private Note mapDocumentToNote(DocumentSnapshot doc) {
         Note note = new Note();
+        note.setId(doc.getId());
+        note.setContent(doc.getString("content"));
 
-        note.setId(document.getId());
-        note.setContent(document.getString("content"));
-
-        Timestamp createdAt = document.getTimestamp("createdAt");
+        Timestamp createdAt = doc.getTimestamp("createdAt");
         if (createdAt != null) {
             note.setCreatedAt(createdAt.toDate().toInstant());
         }
