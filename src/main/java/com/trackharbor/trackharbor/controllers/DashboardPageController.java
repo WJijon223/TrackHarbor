@@ -1,5 +1,10 @@
 package com.trackharbor.trackharbor.controllers;
 
+import com.trackharbor.trackharbor.model.Position;
+import com.trackharbor.trackharbor.service.PositionService;
+import com.trackharbor.trackharbor.session.SessionManager;
+import javafx.application.Platform;
+
 import javafx.animation.*;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -39,6 +44,12 @@ public class DashboardPageController {
     private boolean isZoomed = false;
     private PieChart.Data activeSlice;
 
+    //Getting the userId from the SessionManager
+    private final PositionService positionService = new PositionService();
+    private final String userId = SessionManager.getCurrentUser().getId();
+
+
+
     // Details Panel Limit
     private List<CompanyEntry> currentEntries = new ArrayList<>();
     private int currentPage = 0;
@@ -50,17 +61,15 @@ public class DashboardPageController {
     };
 
     @FXML
+    //the new initialization method from loadFirebase
     public void initialize() {
-        setupPieChart();
-
+        loadFirebaseData();
         // Start details panel off-screen
         detailsPanel.setTranslateX(300);
-
         // Donut hole scales with container
         donutHole.radiusProperty().bind(
                 chartContainer.widthProperty().add(chartContainer.heightProperty()).divide(12)
         );
-
         // Next Button
         nextButton.setOnAction(e -> {
             currentPage++;
@@ -73,23 +82,41 @@ public class DashboardPageController {
                 loadPage();
             }
         });
-
     }
-    // Pie Chart Data
-    private void setupPieChart() {
+
+    //Pulling the data from Firebase
+    private void loadFirebaseData() {
+        final String userId = SessionManager.getCurrentUser().getId();
+        List<Position> positions = positionService.getPositionsForUser(userId);
+
+        // Count categories
+        int interview = 0, oa = 0, rejected = 0, waiting = 0, accepted = 0, other = 0;
+
+        for (Position p : positions) {
+            switch (p.getStatus()) {
+                case "Interview" -> interview++;
+                case "OA" -> oa++;
+                case "Rejected" -> rejected++;
+                case "Waiting" -> waiting++;
+                case "Accepted" -> accepted++;
+                default -> other++;
+            }
+        }
+        // The new pie chart data object creation
+        pieChart.getData().clear();
         pieChart.getData().addAll(
-                new PieChart.Data("Interview", 10),
-                new PieChart.Data("OA", 14),
-                new PieChart.Data("Rejected", 20),
-                new PieChart.Data("Waiting", 37),
-                new PieChart.Data("Accepted", 2),
-                new PieChart.Data("Other", 7)
+                new PieChart.Data("Interview", interview),
+                new PieChart.Data("OA", oa),
+                new PieChart.Data("Rejected", rejected),
+                new PieChart.Data("Waiting", waiting),
+                new PieChart.Data("Accepted", accepted),
+                new PieChart.Data("Other", other)
         );
-    // Pie Chart Data Loop
+
+        // Apply colors + click handlers
         for (int i = 0; i < pieChart.getData().size(); i++) {
             PieChart.Data data = pieChart.getData().get(i);
             final int index = i;
-
             data.getNode().setStyle("-fx-pie-color: " + colors[index] + ";");
             data.getNode().setOnMouseClicked(e -> handleSliceClick(data));
         }
@@ -98,6 +125,7 @@ public class DashboardPageController {
 
     // Panel Slide In 
     private void slideInPanel() {
+
         TranslateTransition slideIn =
                 new TranslateTransition(Duration.seconds(0.4), detailsPanel);
         slideIn.setFromX(300);
@@ -120,21 +148,26 @@ public class DashboardPageController {
         detailsTitle.setText(title);
         detailsCount.setText("Count: " + count);
 
-        // Demo Data, Replace with Getters From Table Page
+        //using the Position to get data
+        List<Position> positions = positionService.getPositionsForUser(userId);
+
         currentEntries.clear();
-        for (int i = 1; i <= count; i++) {
-            currentEntries.add(new CompanyEntry("Company " + i, LocalDate.now().minusDays(i)));
+
+        for (Position p : positions) {
+            if (p.getStatus().equals(title)) {
+                LocalDate date = p.getDateApplied() != null ? p.getDateApplied() : LocalDate.now();
+                currentEntries.add(new CompanyEntry(p.getName(), date));
+            }
         }
 
-        // Sort By Date
         currentEntries.sort(Comparator.comparing(CompanyEntry::getDate).reversed());
 
         currentPage = 0;
         loadPage();
-
         slideInPanel();
     }
-    
+
+
     private void loadPage() {
         detailsList.getChildren().clear();
 
@@ -252,8 +285,7 @@ public class DashboardPageController {
             throw new RuntimeException("Failed to load login page.", e);
         }
     }
-
-    // Sample Data Class, Probably Will Be Removed After Firebase
+    //This is now a placeholder
     public static class CompanyEntry {
         private final String name;
         private final LocalDate date;
@@ -266,4 +298,6 @@ public class DashboardPageController {
         public String getName() { return name; }
         public LocalDate getDate() { return date; }
     }
+
+
 }
