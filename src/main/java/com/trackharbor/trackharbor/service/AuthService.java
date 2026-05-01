@@ -81,4 +81,47 @@ public class AuthService {
             throw new RuntimeException("Failed to sign in user.", e);
         }
     }
+
+    public String registerWithEmailAndPassword(String email, String password) {
+        try {
+            String endpoint =
+                    "https://identitytoolkit.googleapis.com/v1/accounts:signUp?key="
+                            + API_KEY;
+
+            String requestBody = """
+                {
+                    "email": "%s",
+                    "password": "%s",
+                    "returnSecureToken": true
+                }
+                """.formatted(email, password);
+
+            HttpRequest request = HttpRequest.newBuilder()
+                    .uri(URI.create(endpoint))
+                    .header("Content-Type", "application/json")
+                    .POST(HttpRequest.BodyPublishers.ofString(requestBody))
+                    .build();
+
+            HttpResponse<String> response = httpClient.send(
+                    request,
+                    HttpResponse.BodyHandlers.ofString()
+            );
+
+            JsonObject json = JsonParser.parseString(response.body()).getAsJsonObject();
+
+            if (response.statusCode() != 200) {
+                String errorMessage = json
+                        .getAsJsonObject("error")
+                        .get("message")
+                        .getAsString();
+
+                throw new RuntimeException("Firebase registration failed: " + errorMessage);
+            }
+
+            return json.get("localId").getAsString();
+
+        } catch (IOException | InterruptedException e) {
+            throw new RuntimeException("Failed to register user.", e);
+        }
+    }
 }
