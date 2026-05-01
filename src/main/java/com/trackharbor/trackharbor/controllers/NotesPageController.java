@@ -22,8 +22,7 @@ import java.util.concurrent.Executors;
 
 public class NotesPageController {
 
-    // FXML Bindings
-
+    // fxml
     @FXML private StackPane pageRoot;
     @FXML private TextField mainSearch;
     @FXML private VBox      cardsContainer;
@@ -37,15 +36,12 @@ public class NotesPageController {
 
     // services
 
-    // all firestore access goes through these; no direct db calls in this controller
+    // all Firestore access goes through these
     private final PositionService positionService = new PositionService();
     private final NoteService     noteService     = new NoteService();
 
-    // background thread pool keeps service calls off the JavaFX UI thread
-
+    // background thread pool — keeps service calls off the JavaFX UI thread
     private final ExecutorService executor = Executors.newCachedThreadPool(r -> {
-
-
         Thread t = new Thread(r, "firestore-worker");
         t.setDaemon(true);
         return t;
@@ -53,13 +49,9 @@ public class NotesPageController {
 
     // state
 
-
     private final List<Position>       allPositions = new ArrayList<>();
 
 
-
-    // note counts stored separately position model doesn't carry this field.
-    // Key: positionId → Value: number of notes in that position's sub-collection.
     private final Map<String, Integer> noteCounts   = new HashMap<>();
 
     private enum SortMode { RECENT, COMPANY, STATUS }
@@ -74,13 +66,11 @@ public class NotesPageController {
     public void initialize() {
 
         // populate sidebar avatar with logged-in user's initials
-
         String first = SessionManager.getCurrentUser().getFirstName();
         String last  = SessionManager.getCurrentUser().getLastName();
         avatarLabel.setText(("" + first.charAt(0) + last.charAt(0)).toUpperCase());
 
-        // live search — re-filters cards on every keystroke
-
+        // live search
         mainSearch.textProperty().addListener(
                 (obs, old, val) -> renderCards(val.trim().toLowerCase())
         );
@@ -89,7 +79,7 @@ public class NotesPageController {
         loadPositions();
     }
 
-    // load positions
+    // lod positions
 
     /**
      * Loads all positions for the current user via PositionService,
@@ -101,24 +91,18 @@ public class NotesPageController {
      * Runs on a background thread; hands results to the UI via Platform.runLater().
      */
 
-
     private void loadPositions() {
-
         String userId = SessionManager.getCurrentUser().getId();
 
         executor.submit(() -> {
-
             try {
-
-                // positionService handles all firestore querying and field mapping
-
+                // positionService handles all Firestore querying and field mapping
                 List<Position> loaded = positionService.getPositionsForUser(userId);
 
-                // sort by updatedAt descending — most recently updated appears first.
-                // positionService returns in firestore insertion order so we sort here.
+                // sort by updatedAt descending — most recently updated appears first
+                // positionService returns in Firestore insertion order so we sort here
 
                 loaded.sort((a, b) -> {
-
                     if (a.getUpdatedAt() == null && b.getUpdatedAt() == null) return 0;
                     if (a.getUpdatedAt() == null) return 1;
                     if (b.getUpdatedAt() == null) return -1;
@@ -126,17 +110,13 @@ public class NotesPageController {
                 });
 
                 // fetch note count for each position via NoteService
-
                 Map<String, Integer> counts = new HashMap<>();
                 for (Position p : loaded) {
-
                     int count = noteService.getNoteCountForPosition(userId, p.getId());
                     counts.put(p.getId(), count);
                 }
 
                 Platform.runLater(() -> {
-
-
                     allPositions.clear();
                     allPositions.addAll(loaded);
                     noteCounts.clear();
@@ -156,12 +136,10 @@ public class NotesPageController {
     // rendering
 
     private void renderCards(String query) {
-        // 1. filter by search query across name and status
 
-
+        // filter by search query across name and status
         List<Position> visible = new ArrayList<>();
         for (Position p : allPositions) {
-
             String name   = p.getName()   != null ? p.getName().toLowerCase()   : "";
             String status = p.getStatus() != null ? p.getStatus().toLowerCase() : "";
             if (query.isEmpty() || name.contains(query) || status.contains(query)) {
@@ -169,9 +147,7 @@ public class NotesPageController {
             }
         }
 
-        // 2. sort
-
-
+        // sort
         switch (currentSort) {
             case COMPANY -> visible.sort(Comparator.comparing(
                     p -> p.getName() != null ? p.getName() : ""));
@@ -185,21 +161,15 @@ public class NotesPageController {
             });
         }
 
-        // 3. rebuild card list
-
-
+        // rebuild card list
         cardsContainer.getChildren().clear();
 
         if (allPositions.isEmpty()) {
-
-
             cardsContainer.getChildren().add(buildEmptyState(
                     "No positions yet.",
                     "Add a position from the Table page first."
             ));
         } else if (visible.isEmpty()) {
-
-
             cardsContainer.getChildren().add(buildEmptyState(
                     "No matches found.",
                     "Try a different search term."
@@ -210,33 +180,26 @@ public class NotesPageController {
             }
         }
 
-        // 4. update entry count label
-
+        // update entry count label
         if (sectionCount != null) {
             int n = visible.size();
             sectionCount.setText(n + (n == 1 ? " entry" : " entries"));
         }
     }
 
-    // card builder
-
+    // cards
 
     private HBox buildCard(Position p) {
-
         String name      = p.getName()   != null ? p.getName()   : "Unknown";
         String status    = p.getStatus() != null ? p.getStatus() : "Other";
         int    noteCount = noteCounts.getOrDefault(p.getId(), 0);
 
         String updatedStr = "—";
         if (p.getUpdatedAt() != null) {
-
-
             updatedStr = DISPLAY_FMT.format(p.getUpdatedAt());
         }
 
         // company badge
-
-
         StackPane badge = new StackPane();
         badge.getStyleClass().addAll("company-badge", badgeColor(name));
         badge.setMinSize(46, 46);
@@ -246,8 +209,6 @@ public class NotesPageController {
         badge.getChildren().add(badgeLabel);
 
         // info column
-
-
         Label companyLbl = new Label(name);
         companyLbl.getStyleClass().add("card-company");
 
@@ -261,8 +222,6 @@ public class NotesPageController {
         HBox.setHgrow(info, Priority.ALWAYS);
 
         // right side: note count pill + arrow
-
-
         Label pill = new Label(noteCount + (noteCount == 1 ? " note" : " notes"));
         pill.getStyleClass().add("notes-pill");
 
@@ -273,8 +232,6 @@ public class NotesPageController {
         right.setAlignment(Pos.CENTER_RIGHT);
 
         // assemble
-
-
         HBox card = new HBox(16, badge, info, right);
         card.getStyleClass().add("note-card");
         card.setAlignment(Pos.CENTER_LEFT);
@@ -283,7 +240,7 @@ public class NotesPageController {
         return card;
     }
 
-    // modal overlay
+    // modoal
 
     /**
      * Loads note-modal.fxml and pushes it onto pageRoot as an overlay layer.
@@ -305,7 +262,6 @@ public class NotesPageController {
      * ──────────────────────────────────────────────────────────────────────
      */
 
-
     private void openModal(Position position) {
         try {
             FXMLLoader loader = new FXMLLoader(
@@ -316,8 +272,7 @@ public class NotesPageController {
 
             NoteModalController modalCtrl = loader.getController();
 
-            // TODO: uncomment once will adds initForPosition() to NoteModalController
-            // modalCtrl.initForPosition(position, SessionManager.getCurrentUser().getId());
+            modalCtrl.initForPosition(position, SessionManager.getCurrentUser().getId());
 
             // refresh pill count when modal closes
             modalCtrl.setOnCloseRequest(() -> refreshNoteCount(position));
@@ -338,7 +293,6 @@ public class NotesPageController {
      * via NoteService and re-renders the card list so the pill stays accurate
      * without doing a full page reload.
      */
-
 
     private void refreshNoteCount(Position position) {
         String userId = SessionManager.getCurrentUser().getId();
@@ -391,18 +345,52 @@ public class NotesPageController {
         }
     }
 
-    // add note button
+    // navi
+
+    /**
+     * Navigates to a page by loading its FXML and setting it on the current Stage.
+     * Gets the Stage from pageRoot since it's always in the scene graph.
+     */
+    private void navigateTo(String fxmlFile) {
+        try {
+            javafx.fxml.FXMLLoader loader = new javafx.fxml.FXMLLoader(
+                    getClass().getResource("/com/trackharbor/trackharbor/" + fxmlFile)
+            );
+            javafx.scene.Parent root = loader.load();
+            javafx.stage.Stage stage =
+                    (javafx.stage.Stage) pageRoot.getScene().getWindow();
+            stage.getScene().setRoot(root);
+        } catch (java.io.IOException e) {
+            e.printStackTrace();
+            showError("Navigation failed. Could not load " + fxmlFile);
+        }
+    }
+
+    @FXML
+    private void navigateToDashboard() {
+        navigateTo("dashboard-page.fxml");
+    }
+
+    @FXML
+    private void navigateToNotes() {
+        // Already on Notes — do nothing
+    }
+
+    @FXML
+    private void navigateToTable() {
+        navigateTo("table-page.fxml");
+    }
+
+    // add note buttn
 
     @FXML
     private void handleAddNote() {
         showError("Select a position card to view and add notes.");
     }
 
-
     // ui state helpers
 
     private void showLoadingState() {
-
         cardsContainer.getChildren().clear();
         Label lbl = new Label("Loading positions…");
         lbl.setStyle("-fx-font-size: 13px; -fx-text-fill: #9B89C4; -fx-padding: 32 0 0 4;");
@@ -429,7 +417,6 @@ public class NotesPageController {
     // Badge / Initials Helpers
 
     private String initials(String name) {
-
         if (name == null || name.isBlank()) return "?";
         String[] words = name.trim().split("\\s+");
         if (words.length == 1)
@@ -438,8 +425,6 @@ public class NotesPageController {
     }
 
     private String badgeColor(String name) {
-
-
         if (name == null || name.isBlank()) return "badge-gray";
         return switch (Character.toUpperCase(name.charAt(0)) % 4) {
             case 0 -> "badge-red";

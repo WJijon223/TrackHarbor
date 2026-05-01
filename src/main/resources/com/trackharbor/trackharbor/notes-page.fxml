@@ -22,27 +22,27 @@
 
     <BorderPane styleClass="root-pane">
 
-        <!-- ── Left Sidebar ── -->
+        <!-- left sidebar -->
         <left>
             <VBox styleClass="sidebar" prefWidth="68" alignment="TOP_CENTER" spacing="28">
                 <VBox.margin><Insets top="24"/></VBox.margin>
 
-                <!-- Logo mark -->
+                <!-- logo mark -->
                 <StackPane styleClass="sidebar-logo">
                     <Label text="TH" styleClass="sidebar-logo-text"/>
                 </StackPane>
 
-                <!-- Nav icons -->
+                <!-- nav icons -->
                 <VBox spacing="20" alignment="CENTER">
-                    <Button text="⌂" styleClass="nav-btn"/>
-                    <Button text="✍" styleClass="nav-btn"/>
-                    <Button text="✦" styleClass="nav-btn"/>
+                    <Button text="⌂" styleClass="nav-btn" onAction="#navigateToDashboard"/>
+                    <Button text="✍" styleClass="nav-btn" onAction="#navigateToNotes"/>
+                    <Button text="✦" styleClass="nav-btn" onAction="#navigateToTable"/>
                     <Button text="⚙" styleClass="nav-btn"/>
                 </VBox>
 
                 <Region VBox.vgrow="ALWAYS"/>
 
-                <!-- Avatar -->
+                <!-- avatar -->
                 <StackPane styleClass="sidebar-avatar">
                     <Label fx:id="avatarLabel" text="?" styleClass="sidebar-avatar-text"/>
                 </StackPane>
@@ -53,25 +53,26 @@
         <center>
             <HBox styleClass="page-body">
 
-                <!-- ══ Main Column ══ -->
+                <!-- main column -->
                 <VBox styleClass="main-col" HBox.hgrow="ALWAYS">
 
-                    <!-- Top Bar -->
+                    <!-- top bar -->
                     <HBox styleClass="top-bar" alignment="CENTER_LEFT" spacing="8">
-                        <Label text="Dashboard" styleClass="crumb-inactive"/>
+                        <Label text="Dashboard" styleClass="crumb-inactive"
+                               onMouseClicked="#navigateToDashboard"/>
                         <Label text="›" styleClass="crumb-sep"/>
                         <Label text="My Notes" styleClass="crumb-active"/>
                         <Region HBox.hgrow="ALWAYS"/>
                         <Label text="↻  Sync" styleClass="sync-label"/>
                     </HBox>
 
-                    <!-- Header -->
+                    <!-- header -->
                     <VBox styleClass="header-block">
                         <Label text="Interview Notes" styleClass="page-title"/>
                         <Label text="All your prep materials in one place." styleClass="page-subtitle"/>
                     </VBox>
 
-                    <!-- Search row -->
+                    <!-- search row -->
                     <HBox styleClass="search-row" alignment="CENTER_LEFT" spacing="12">
                         <TextField fx:id="mainSearch"
                                    promptText="⌕  Search notes, companies, roles…"
@@ -79,14 +80,14 @@
                         <Button text="Filter" styleClass="filter-btn"/>
                     </HBox>
 
-                    <!-- Section label -->
+                    <!-- section label -->
                     <HBox styleClass="section-label-row" alignment="CENTER_LEFT">
                         <Label text="RECENT" styleClass="section-label"/>
                         <Region HBox.hgrow="ALWAYS"/>
                         <Label fx:id="sectionCount" text="" styleClass="section-count"/>
                     </HBox>
 
-                    <!-- Cards (populated dynamically by controller) -->
+                    <!-- cards (populated dynamically by controller) -->
                     <ScrollPane styleClass="scroll-pane" fitToWidth="true" VBox.vgrow="ALWAYS">
                         <VBox fx:id="cardsContainer" styleClass="cards-list" spacing="12">
                             <VBox.margin><Insets top="4" bottom="16"/></VBox.margin>
@@ -95,14 +96,14 @@
 
                 </VBox>
 
-                <!-- ══ Right Panel ══ -->
+                <!-- right panel -->
                 <VBox styleClass="right-panel" prefWidth="300" spacing="20">
 
-                    <!-- Add Note Button -->
+                    <!-- add note button -->
                     <Button fx:id="addNoteBtn" text="＋  Add Note" styleClass="add-btn"
                             maxWidth="Infinity" onAction="#handleAddNote"/>
 
-                    <!-- Sort -->
+                    <!-- sort -->
                     <VBox styleClass="right-card" spacing="10">
                         <Label text="SORT BY" styleClass="right-card-title"/>
                         <HBox spacing="8">
@@ -112,10 +113,10 @@
                         </HBox>
                     </VBox>
 
-                    <!-- AI Tips label -->
+                    <!-- ai tips label -->
                     <Label text="AI TIPS" styleClass="section-label"/>
 
-                    <!-- AI Tip 1 -->
+                    <!-- ai tip 1 -->
                     <VBox styleClass="ai-card" spacing="0">
                         <HBox styleClass="ai-card-header" alignment="CENTER_LEFT" spacing="8">
                             <Label text="✦" styleClass="ai-icon"/>
@@ -127,7 +128,7 @@
                         </VBox>
                     </VBox>
 
-                    <!-- AI Tip 2 -->
+                    <!-- ai tip 2 -->
                     <VBox styleClass="ai-card" spacing="0">
                         <HBox styleClass="ai-card-header" alignment="CENTER_LEFT" spacing="8">
                             <Label text="✦" styleClass="ai-icon"/>
@@ -139,7 +140,7 @@
                         </VBox>
                     </VBox>
 
-                    <!-- AI Tip 3 -->
+                    <!-- ai tip 3 -->
                     <VBox styleClass="ai-card" spacing="0">
                         <HBox styleClass="ai-card-header" alignment="CENTER_LEFT" spacing="8">
                             <Label text="✦" styleClass="ai-icon"/>
@@ -157,6 +158,6 @@
         </center>
 
     </BorderPane>
-    <!-- Modal overlay here at runtime by NotesPageController.openModal() -->
+    <!-- modal overlay injected here at runtime by NotesPageController.openModal() -->
 
 </StackPane>
