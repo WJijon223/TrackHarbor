@@ -4,106 +4,106 @@
    ============================================================= */
 
 .modal-overlay {
-	-fx-background-color: rgba(26, 5, 51, 0.18);
-	-fx-alignment: center;
+    -fx-background-color: rgba(26, 5, 51, 0.18);
+    -fx-alignment: center;
 }
 
 .modal-card {
-	-fx-background-color: #FFFFFF;
-	-fx-background-radius: 22px;
-	-fx-border-color: #E9E2FF;
-	-fx-border-radius: 22px;
-	-fx-border-width: 1.5px;
-	-fx-effect: dropshadow(gaussian, rgba(108, 43, 217, 0.16), 30, 0, 0, 10);
+    -fx-background-color: #FFFFFF;
+    -fx-background-radius: 22px;
+    -fx-border-color: #E9E2FF;
+    -fx-border-radius: 22px;
+    -fx-border-width: 1.5px;
+    -fx-effect: dropshadow(gaussian, rgba(108, 43, 217, 0.16), 30, 0, 0, 10);
 }
 
 .modal-header {
-	-fx-padding: 18 22 14 22;
-	-fx-background-color: linear-gradient(to bottom, #FFFFFF, #FCFAFF);
-	-fx-background-radius: 22px 22px 0 0;
+    -fx-padding: 18 22 14 22;
+    -fx-background-color: linear-gradient(to bottom, #FFFFFF, #FCFAFF);
+    -fx-background-radius: 22px 22px 0 0;
 }
 
 .modal-title {
-	-fx-font-size: 17px;
-	-fx-font-weight: bold;
-	-fx-text-fill: #1A0533;
+    -fx-font-size: 17px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #1A0533;
 }
 
 .close-btn {
-	-fx-background-color: transparent;
-	-fx-text-fill: #8F8A9F;
-	-fx-font-size: 18px;
-	-fx-font-weight: bold;
-	-fx-padding: 2 8;
-	-fx-background-radius: 10px;
-	-fx-cursor: hand;
+    -fx-background-color: transparent;
+    -fx-text-fill: #8F8A9F;
+    -fx-font-size: 18px;
+    -fx-font-weight: bold;
+    -fx-padding: 2 8;
+    -fx-background-radius: 10px;
+    -fx-cursor: hand;
 }
 
 .close-btn:hover {
-	-fx-background-color: #F5F3FF;
-	-fx-text-fill: #5B21B6;
+    -fx-background-color: #F5F3FF;
+    -fx-text-fill: #5B21B6;
 }
 
 .header-accent {
-	-fx-pref-height: 3px;
-	-fx-background-color: #3BA3FF;
+    -fx-pref-height: 3px;
+    -fx-background-color: #3BA3FF;
 }
 
 .modal-body {
-	-fx-padding: 16 20 20 20;
+    -fx-padding: 16 20 20 20;
 }
 
 .company-row {
-	-fx-padding: 4 0 2 0;
+    -fx-padding: 4 0 2 0;
 }
 
 .company-logo-badge {
-	-fx-background-color: #FFF1F2;
-	-fx-border-color: #FECDD3;
-	-fx-border-radius: 12px;
-	-fx-background-radius: 12px;
-	-fx-border-width: 1px;
-	-fx-min-width: 40px;
-	-fx-pref-width: 40px;
-	-fx-min-height: 40px;
-	-fx-pref-height: 40px;
+    -fx-background-color: #FFF1F2;
+    -fx-border-color: #FECDD3;
+    -fx-border-radius: 12px;
+    -fx-background-radius: 12px;
+    -fx-border-width: 1px;
+    -fx-min-width: 40px;
+    -fx-pref-width: 40px;
+    -fx-min-height: 40px;
+    -fx-pref-height: 40px;
 }
 
 .company-logo-mark {
-	-fx-font-size: 16px;
-	-fx-font-weight: bold;
-	-fx-text-fill: #E11D48;
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #E11D48;
 }
 
 .company-name {
-	-fx-font-size: 15px;
-	-fx-font-weight: bold;
-	-fx-text-fill: #1A0533;
+    -fx-font-size: 15px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #1A0533;
 }
 
 .company-role {
-	-fx-font-size: 12px;
-	-fx-text-fill: #6B7280;
+    -fx-font-size: 12px;
+    -fx-text-fill: #6B7280;
 }
 
 .company-meta {
-	-fx-font-size: 12px;
-	-fx-text-fill: #8F8A9F;
+    -fx-font-size: 12px;
+    -fx-text-fill: #8F8A9F;
 }
 
 .modal-section-title {
-	-fx-font-size: 14px;
-	-fx-font-weight: bold;
-	-fx-text-fill: #1A0533;
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #1A0533;
 }
 
 .content-panel {
-	-fx-background-color: #FFFFFF;
-	-fx-background-radius: 0;
-	-fx-border-color: #E5E7EB;
-	-fx-border-radius: 0;
-	-fx-border-width: 1px;
-	-fx-padding: 10 12 12 12;
+    -fx-background-color: #FFFFFF;
+    -fx-background-radius: 0;
+    -fx-border-color: #E5E7EB;
+    -fx-border-radius: 0;
+    -fx-border-width: 1px;
+    -fx-padding: 10 12 12 12;
 }
 
 .edit-btn,
@@ -111,106 +111,262 @@
 .primary-btn,
 .secondary-btn,
 .delete-btn {
-	-fx-font-size: 12px;
-	-fx-font-weight: bold;
-	-fx-cursor: hand;
+    -fx-font-size: 12px;
+    -fx-font-weight: bold;
+    -fx-cursor: hand;
 }
 
 .edit-btn,
 .generate-btn,
 .primary-btn {
-	-fx-background-color: #8B2CF5;
-	-fx-text-fill: white;
-	-fx-background-radius: 0;
-	-fx-border-width: 0;
+    -fx-background-color: #8B2CF5;
+    -fx-text-fill: white;
+    -fx-background-radius: 0;
+    -fx-border-width: 0;
 }
 
 .edit-btn {
-	-fx-padding: 6 16;
+    -fx-padding: 6 16;
 }
 
 .generate-btn {
-	-fx-padding: 7 16;
+    -fx-padding: 7 16;
 }
 
 .edit-btn:hover,
 .generate-btn:hover,
 .primary-btn:hover {
-	-fx-background-color: #7C24DF;
+    -fx-background-color: #7C24DF;
 }
 
 .notes-area {
-	-fx-background-color: #FFFFFF;
-	-fx-background-insets: 0;
-	-fx-background-radius: 0;
-	-fx-border-color: transparent;
-	-fx-border-width: 0;
-	-fx-font-size: 12px;
-	-fx-font-weight: bold;
-	-fx-text-fill: #111827;
-	-fx-prompt-text-fill: #B8ABD8;
-	-fx-highlight-fill: #DDD6FE;
-	-fx-highlight-text-fill: #111827;
+    -fx-background-color: #FFFFFF;
+    -fx-background-insets: 0;
+    -fx-background-radius: 0;
+    -fx-border-color: transparent;
+    -fx-border-width: 0;
+    -fx-font-size: 12px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #111827;
+    -fx-prompt-text-fill: #B8ABD8;
+    -fx-highlight-fill: #DDD6FE;
+    -fx-highlight-text-fill: #111827;
 }
 
 .notes-area .content {
-	-fx-background-color: #FFFFFF;
-	-fx-background-radius: 0;
-	-fx-padding: 0;
+    -fx-background-color: #FFFFFF;
+    -fx-background-radius: 0;
+    -fx-padding: 0;
 }
 
 .notes-area:focused {
-	-fx-background-color: #FFFFFF;
-	-fx-background-insets: 0;
-	-fx-border-color: transparent;
+    -fx-background-color: #FFFFFF;
+    -fx-background-insets: 0;
+    -fx-border-color: transparent;
 }
 
 .notes-area .scroll-pane,
 .notes-area .scroll-pane .viewport,
 .notes-area .scroll-pane .content {
-	-fx-background-color: transparent;
+    -fx-background-color: transparent;
 }
 
 .notes-area .scroll-bar:vertical,
 .notes-area .scroll-bar:horizontal {
-	-fx-opacity: 0;
-	-fx-pref-width: 0;
-	-fx-pref-height: 0;
+    -fx-opacity: 0;
+    -fx-pref-width: 0;
+    -fx-pref-height: 0;
 }
 
 .ai-tips-area {
-	-fx-font-weight: bold;
+    -fx-font-weight: bold;
 }
 
 .modal-footer {
-	-fx-padding: 8 20 18 20;
+    -fx-padding: 8 20 18 20;
 }
 
 .delete-btn {
-	-fx-background-color: #FDE8EC;
-	-fx-text-fill: #F87171;
-	-fx-background-radius: 0;
-	-fx-padding: 7 14;
+    -fx-background-color: #FDE8EC;
+    -fx-text-fill: #F87171;
+    -fx-background-radius: 0;
+    -fx-padding: 7 14;
 }
 
 .delete-btn:hover {
-	-fx-background-color: #FBD5DC;
+    -fx-background-color: #FBD5DC;
 }
 
 .secondary-btn {
-	-fx-background-color: #FFFFFF;
-	-fx-text-fill: #111827;
-	-fx-border-color: #D1D5DB;
-	-fx-border-width: 1px;
-	-fx-border-radius: 0;
-	-fx-background-radius: 0;
-	-fx-padding: 7 14;
+    -fx-background-color: #FFFFFF;
+    -fx-text-fill: #111827;
+    -fx-border-color: #D1D5DB;
+    -fx-border-width: 1px;
+    -fx-border-radius: 0;
+    -fx-background-radius: 0;
+    -fx-padding: 7 14;
 }
 
 .secondary-btn:hover {
-	-fx-background-color: #F9FAFB;
+    -fx-background-color: #F9FAFB;
 }
 
 .primary-btn {
-	-fx-padding: 7 14;
+    -fx-padding: 7 14;
+}
+
+/* =============================================================
+   note row styles — added for multi-note list
+   ============================================================= */
+
+/* scroll pane that wraps the notes list */
+.notes-scroll-pane {
+    -fx-background-color: transparent;
+    -fx-background: transparent;
+    -fx-border-color: #E5E7EB;
+    -fx-border-width: 1px;
+    -fx-padding: 0;
+}
+
+.notes-scroll-pane > .viewport {
+    -fx-background-color: #FAFAFA;
+}
+
+.notes-scroll-pane .scroll-bar:vertical {
+    -fx-pref-width: 6px;
+    -fx-background-color: transparent;
+}
+
+.notes-scroll-pane .scroll-bar:vertical .thumb {
+    -fx-background-color: #C4B5FD;
+    -fx-background-radius: 10px;
+}
+
+.notes-scroll-pane .scroll-bar:vertical .track {
+    -fx-background-color: transparent;
+}
+
+.notes-scroll-pane .scroll-bar:vertical .increment-button,
+.notes-scroll-pane .scroll-bar:vertical .decrement-button {
+    -fx-pref-height: 0;
+    -fx-opacity: 0;
+}
+
+.notes-scroll-pane .scroll-bar:horizontal {
+    -fx-opacity: 0;
+    -fx-pref-height: 0;
+}
+
+.notes-scroll-pane .corner {
+    -fx-background-color: transparent;
+}
+
+/* container VBox inside the scroll pane */
+.notes-list {
+    -fx-background-color: transparent;
+    -fx-padding: 8;
+}
+
+/* individual note card row */
+.note-row {
+    -fx-background-color: #FFFFFF;
+    -fx-background-radius: 10px;
+    -fx-border-color: #EDE9FE;
+    -fx-border-radius: 10px;
+    -fx-border-width: 1.5px;
+    -fx-padding: 12 14;
+    -fx-effect: dropshadow(gaussian, rgba(108, 43, 217, 0.05), 6, 0, 0, 2);
+}
+
+.note-row:hover {
+    -fx-border-color: #C4B5FD;
+}
+
+/* note content text */
+.note-row-content {
+    -fx-font-size: 12.5px;
+    -fx-text-fill: #1A0533;
+    -fx-wrap-text: true;
+}
+
+/* created date under content */
+.note-row-date {
+    -fx-font-size: 10px;
+    -fx-text-fill: #B8ABD8;
+}
+
+/* edit button inside a note row */
+.note-row-edit-btn {
+    -fx-background-color: #EDE9FE;
+    -fx-text-fill: #6C2BD9;
+    -fx-font-size: 11px;
+    -fx-font-weight: bold;
+    -fx-background-radius: 8px;
+    -fx-padding: 4 12;
+    -fx-cursor: hand;
+    -fx-border-width: 0;
+}
+
+.note-row-edit-btn:hover {
+    -fx-background-color: #DDD6FE;
+}
+
+/* delete button inside a note row */
+.note-row-delete-btn {
+    -fx-background-color: #FFF1F2;
+    -fx-text-fill: #BE123C;
+    -fx-font-size: 11px;
+    -fx-font-weight: bold;
+    -fx-background-radius: 8px;
+    -fx-padding: 4 12;
+    -fx-cursor: hand;
+    -fx-border-width: 0;
+}
+
+.note-row-delete-btn:hover {
+    -fx-background-color: #FDE8EC;
+}
+
+/* inline edit TextArea that replaces content label on Edit click */
+.note-row-edit-area {
+    -fx-background-color: #F5F3FF;
+    -fx-background-radius: 8px;
+    -fx-border-color: #DDD6FE;
+    -fx-border-radius: 8px;
+    -fx-border-width: 1px;
+    -fx-font-size: 12.5px;
+    -fx-text-fill: #1A0533;
+    -fx-padding: 8;
+}
+
+/* save button shown during inline edit */
+.note-row-save-btn {
+    -fx-background-color: #6C2BD9;
+    -fx-text-fill: white;
+    -fx-font-size: 11px;
+    -fx-font-weight: bold;
+    -fx-background-radius: 8px;
+    -fx-padding: 4 14;
+    -fx-cursor: hand;
+    -fx-border-width: 0;
+}
+
+.note-row-save-btn:hover {
+    -fx-background-color: #5B21B6;
+}
+
+/* cancel button shown during inline edit */
+.note-row-cancel-btn {
+    -fx-background-color: #F0EEFF;
+    -fx-text-fill: #7C5FA8;
+    -fx-font-size: 11px;
+    -fx-font-weight: bold;
+    -fx-background-radius: 8px;
+    -fx-padding: 4 12;
+    -fx-cursor: hand;
+    -fx-border-width: 0;
+}
+
+.note-row-cancel-btn:hover {
+    -fx-background-color: #EDE9FE;
 }
