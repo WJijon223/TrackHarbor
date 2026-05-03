@@ -22,9 +22,9 @@ public class FirebaseInitializer {
             // Option 1: explicit local JSON path
 
             System.out.println("Working dir: " + System.getProperty("user.dir"));
-            InputStream serviceAccount = new FileInputStream(
-                    "C:\\TrackHarbor\\TrackHarbor\\src\\main\\resources\\trackharbor-firebase-service-account.json"
-            );
+            InputStream serviceAccount = FirebaseInitializer.class
+                            .getClassLoader()
+                            .getResourceAsStream("trackharbor-firebase-service-account.json");
 
 
             FirebaseOptions options = FirebaseOptions.builder()
