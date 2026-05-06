@@ -40,17 +40,17 @@
                 </HBox>
 
                 <HBox spacing="10" styleClass="legend-row">
-                    <Circle fill="#32CD32" radius="8" stroke="black" strokeWidth="1.5" />
+                    <Circle fill="#FF0000" radius="8" stroke="black" strokeWidth="1.5" />
                     <Label text="Rejected" />
                 </HBox>
 
                 <HBox spacing="10" styleClass="legend-row">
-                    <Circle fill="#FF0000" radius="8" stroke="black" strokeWidth="1.5" />
+                    <Circle fill="#32CD32" radius="8" stroke="black" strokeWidth="1.5" />
                     <Label text="Waiting" />
                 </HBox>
 
                 <HBox spacing="10" styleClass="legend-row">
-                    <Circle fill="#0000FF" radius="8" stroke="black" strokeWidth="1.5" />
+                    <Circle fill="skyblue" radius="8" stroke="black" strokeWidth="1.5" />
                     <Label text="Accepted" />
                 </HBox>
 

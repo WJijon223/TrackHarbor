@@ -56,8 +56,8 @@ public class DashboardPageController {
     private final int PAGE_SIZE = 5;
 
     private final String[] colors = {
-            "hotpink", "purple", "limegreen",
-            "red", "blue", "gold"
+            "hotpink", "purple", "red",
+            "limegreen", "skyblue", "gold"
     };
 
     @FXML
@@ -177,9 +177,17 @@ public class DashboardPageController {
         for (int i = start; i < end; i++) {
             CompanyEntry entry = currentEntries.get(i);
 
-            Label item = new Label(entry.getName() + " - " + entry.getDate());
-            item.getStyleClass().add("details-item");
-            detailsList.getChildren().add(item);
+            VBox card = new VBox();
+            card.getStyleClass().add("details-card");
+
+            Label name = new Label(entry.getName());
+            name.getStyleClass().add("details-card-title");
+
+            Label date = new Label("Date status entered: " + entry.getDate());
+            date.getStyleClass().add("details-card-date");
+
+            card.getChildren().addAll(name, date);
+            detailsList.getChildren().add(card);
         }
 
         nextButton.setDisable(end >= currentEntries.size());
