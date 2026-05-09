@@ -3,6 +3,8 @@ package com.trackharbor.trackharbor.controllers;
 import com.trackharbor.trackharbor.model.Note;
 import com.trackharbor.trackharbor.model.Position;
 import com.trackharbor.trackharbor.service.NoteService;
+import com.trackharbor.trackharbor.service.PositionService;
+import com.trackharbor.trackharbor.service.AiTipsService;
 import com.trackharbor.trackharbor.session.SessionManager;
 
 import javafx.application.Platform;
@@ -43,19 +45,15 @@ public class NoteModalController {
 
     // ai tips
     @FXML private TextArea aiTipsArea;
+    @FXML private Button generateTipsButton;
 
-    // state
-
-    private static final String DEFAULT_AI_TIPS = String.join("\n",
-            "• Brush up on Python Skills",
-            "• Use GlassDoor questions to practice",
-            "• Prepare one STAR story for a technical challenge"
-    );
 
     private static final DateTimeFormatter DATE_FMT =
             DateTimeFormatter.ofPattern("MMM d, yyyy").withZone(ZoneId.systemDefault());
 
     private final NoteService noteService = new NoteService();
+    private final PositionService positionService = new PositionService();
+    private final AiTipsService aiTipsService = new AiTipsService();
 
     // background thread pool — keeps NoteService calls off the JavaFX thread
     private final ExecutorService executor = Executors.newCachedThreadPool(r -> {
@@ -67,6 +65,7 @@ public class NoteModalController {
     private String     userId;
     private String     positionId;
     private Runnable   onCloseRequest;
+    private Position currentPosition;
 
     // entry point called by NotesPageController
 
@@ -80,6 +79,7 @@ public class NoteModalController {
     public void initForPosition(Position position, String userId) {
         this.userId     = userId;
         this.positionId = position.getId();
+        this.currentPosition = position;
 
         // populate company header row
         String name   = position.getName()   != null ? position.getName()   : "Unknown";
@@ -92,6 +92,9 @@ public class NoteModalController {
         String dateStr = position.getUpdatedAt() != null
                 ? "Updated " + DATE_FMT.format(position.getUpdatedAt()) : "—";
         companyMetaLabel.setText(dateStr);
+
+        // display ai tips notes
+        displayAiTips(position);
 
         // load exsisting notes from firestore
         loadNotes();
@@ -286,12 +289,75 @@ public class NoteModalController {
 
     @FXML
     private void handleGenerateTips() {
-        if (aiTipsArea.getText() == null || aiTipsArea.getText().isBlank()) {
-            aiTipsArea.setText(DEFAULT_AI_TIPS);
+        if (currentPosition == null) {
+            aiTipsArea.setText("No position selected.");
             return;
         }
-        if (!aiTipsArea.getText().contains("STAR story")) {
-            aiTipsArea.appendText("\n• Prepare one STAR story for a technical challenge");
+
+        if (currentPosition.isAiTipsGenerated()) {
+            displayAiTips(currentPosition);
+            return;
+        }
+
+        String jobUrl = currentPosition.getLink();
+
+        if (jobUrl == null || jobUrl.isBlank()) {
+            aiTipsArea.setText("This position does not have a job link.");
+            return;
+        }
+
+        generateTipsButton.setDisable(true);
+        generateTipsButton.setText("Generating...");
+        aiTipsArea.setText("Generating AI tips...");
+
+        executor.submit(() -> {
+            try {
+                List<String> generatedTips = aiTipsService.generateTips(jobUrl);
+
+                positionService.updateAiTips(userId, positionId, generatedTips);
+
+                currentPosition.setAiTips(generatedTips);
+                currentPosition.setAiTipsGenerated(true);
+
+                Platform.runLater(() -> displayAiTips(currentPosition));
+
+            } catch (Exception e) {
+                Platform.runLater(() -> {
+                    generateTipsButton.setDisable(false);
+                    generateTipsButton.setText("Generate Tips");
+                    aiTipsArea.setText("Failed to generate AI tips. Please try again.");
+                });
+                e.printStackTrace();
+            }
+        });
+    }
+
+    private void displayAiTips(Position position) {
+        List<String> tips = position.getAiTips();
+
+        if (tips == null || tips.isEmpty()) {
+            aiTipsArea.setText("No AI tips generated yet.");
+            generateTipsButton.setDisable(false);
+            generateTipsButton.setText("Generate Tips");
+            return;
+        }
+
+        StringBuilder builder = new StringBuilder();
+
+        for (String tip : tips) {
+            builder.append("• ")
+                    .append(tip)
+                    .append("\n");
+        }
+
+        aiTipsArea.setText(builder.toString().trim());
+
+        if (position.isAiTipsGenerated()) {
+            generateTipsButton.setDisable(true);
+            generateTipsButton.setText("Tips Generated");
+        } else {
+            generateTipsButton.setDisable(false);
+            generateTipsButton.setText("Generate Tips");
         }
     }
 
