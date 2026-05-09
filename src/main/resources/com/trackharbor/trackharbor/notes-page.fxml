@@ -100,8 +100,8 @@
                 <VBox styleClass="right-panel" prefWidth="300" spacing="20">
 
                     <!-- add note button -->
-                    <Button fx:id="addNoteBtn" text="＋  Add Note" styleClass="add-btn"
-                            maxWidth="Infinity" onAction="#handleAddNote"/>
+                    <Button fx:id="addNoteBtn" text="TrackHarbor" styleClass="add-btn"
+                            maxWidth="Infinity" disable = "true"/>
 
                     <!-- sort -->
                     <VBox styleClass="right-card" spacing="10">
