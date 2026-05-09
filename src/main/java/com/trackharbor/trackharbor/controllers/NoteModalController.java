@@ -312,7 +312,11 @@ public class NoteModalController {
 
         executor.submit(() -> {
             try {
-                List<String> generatedTips = aiTipsService.generateTips(jobUrl);
+                List<String> generatedTips = aiTipsService.generateTips(
+                        currentPosition.getName(),
+                        currentPosition.getName(),
+                        currentPosition.getLink()
+                );
 
                 positionService.updateAiTips(userId, positionId, generatedTips);
 
@@ -322,16 +326,16 @@ public class NoteModalController {
                 Platform.runLater(() -> displayAiTips(currentPosition));
 
             } catch (Exception e) {
+                e.printStackTrace();
+
                 Platform.runLater(() -> {
                     generateTipsButton.setDisable(false);
                     generateTipsButton.setText("Generate Tips");
-                    aiTipsArea.setText("Failed to generate AI tips. Please try again.");
+                    aiTipsArea.setText("Failed to generate AI tips. Check console.");
                 });
-                e.printStackTrace();
             }
         });
     }
-
     private void displayAiTips(Position position) {
         List<String> tips = position.getAiTips();
 

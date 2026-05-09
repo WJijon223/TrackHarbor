@@ -11,6 +11,8 @@ module com.trackharbor.trackharbor {
     requires com.google.gson;
     requires java.net.http;
     requires java.sql;
+    requires org.jsoup;
+    requires com.google.genai;
 
     opens com.trackharbor.trackharbor to javafx.fxml;
     opens com.trackharbor.trackharbor.controllers to javafx.fxml;
