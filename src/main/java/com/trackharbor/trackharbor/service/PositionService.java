@@ -200,4 +200,35 @@ public class PositionService {
 
         return position;
     }
+
+    public void updateAiTips(String userId, String positionId, List<String> aiTips) {
+        try {
+            if (userId == null || userId.isBlank()) {
+                throw new IllegalArgumentException("User ID is required.");
+            }
+
+            if (positionId == null || positionId.isBlank()) {
+                throw new IllegalArgumentException("Position ID is required.");
+            }
+
+            if (aiTips == null || aiTips.isEmpty()) {
+                throw new IllegalArgumentException("AI tips cannot be null or empty.");
+            }
+
+            DocumentReference positionRef = db.collection("users")
+                    .document(userId)
+                    .collection("positions")
+                    .document(positionId);
+
+            Map<String, Object> updates = new HashMap<>();
+            updates.put("aiTipsGenerated", true);
+            updates.put("aiTips", aiTips);
+            updates.put("updatedAt", Timestamp.now());
+
+            positionRef.update(updates).get();
+
+        } catch (Exception e) {
+            throw new RuntimeException("Failed to update AI tips for position: " + positionId, e);
+        }
+    }
 }
