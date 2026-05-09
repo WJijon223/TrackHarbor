@@ -92,6 +92,7 @@
                               wrapText="true"/>
                     <HBox alignment="CENTER">
                         <Button mnemonicParsing="false"
+                                fx:id="generateTipsButton"
                                 onAction="#handleGenerateTips"
                                 styleClass="generate-btn"
                                 text="Generate Tips"/>
