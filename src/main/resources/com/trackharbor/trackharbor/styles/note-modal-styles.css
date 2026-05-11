@@ -180,6 +180,7 @@
 
 .ai-tips-area {
     -fx-font-weight: bold;
+    -fx-font-size: 14px;
 }
 
 .modal-footer {
