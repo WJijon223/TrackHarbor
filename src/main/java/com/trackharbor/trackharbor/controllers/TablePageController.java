@@ -348,7 +348,18 @@ public class TablePageController implements Initializable {
         TextField companyEdit = styledTextField(row.getCompany(), "Company Name");
         TextField subtitleEdit = styledTextField(row.getSubtitle(), "Position");
         TextField linkEdit = styledTextField(row.getLink(), "Link (https://)");
-        TextField dateEdit = styledTextField(row.getDate(), "MM/DD/YYYY");
+
+        // FIX: Reformat the date to use PARSE_FORMAT for consistency
+        String formattedDate = "";
+        if (!row.getDate().isEmpty()) {
+            try {
+                LocalDate date = LocalDate.parse(row.getDate(), DISPLAY_FORMAT);
+                formattedDate = date.format(PARSE_FORMAT);
+            } catch (DateTimeParseException e) {
+                formattedDate = row.getDate();
+            }
+        }
+        TextField dateEdit = styledTextField(formattedDate, "MM/DD/YYYY");
 
         ComboBox<String> statusEdit = new ComboBox<>(FXCollections.observableArrayList(VALID_STATUSES));
         statusEdit.setValue(row.getStatus());
@@ -431,6 +442,7 @@ public class TablePageController implements Initializable {
             }
         });
     }
+
 
     private void handleDelete(RowItem row) {
         Alert confirm = new Alert(Alert.AlertType.CONFIRMATION);
