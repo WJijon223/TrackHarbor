@@ -1,4 +1,4 @@
-# ![TrackHarbor Logo](./images/logo.png)
+# ![TrackHarbor Logo](./src/main/resources/images/trackharbor-logo.png)
 
 # TrackHarbor
 
