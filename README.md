@@ -10,7 +10,7 @@ The application is built with JavaFX for the desktop user interface and Firebase
 
 ## User Flow Diagram
 
-![User Flow Diagram](./images/user-flow-diagram.png)
+![User Flow Diagram](./src/main/resources/images/user-flow-diagram.png)
 
 ---
 
@@ -181,31 +181,31 @@ mvn javafx:run
 
 ### Login Page
 
-![Login Page](./images/login-page.png)
+![Login Page](./src/main/resources/images/login-page.png)
 
 ---
 
 ### Dashboard Page
 
-![Dashboard Page](./images/dashboard-page.png)
+![Dashboard Page](./src/main/resources/images/dashboard-page.png)
 
 ---
 
 ### Table Page
 
-![Table Page](./images/table-page.png)
+![Table Page](./src/main/resources/images/table-page.png)
 
 ---
 
 ### Notes Page
 
-![Notes Page](./images/notes-page.png)
+![Notes Page](./src/main/resources/images/notes-page.png)
 
 ---
 
 ## API Design Diagram
 
-![API Design Diagram](./images/api-design-diagram.png)
+![API Design Diagram](./src/main/resources/images/api-design-diagram.png)
 
 ---
 
