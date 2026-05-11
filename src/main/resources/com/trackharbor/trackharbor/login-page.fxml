@@ -9,6 +9,8 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Hyperlink?>
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.image.Image?>
 
 <AnchorPane
     xmlns:fx="http://javafx.com/fxml/1"
@@ -28,9 +30,14 @@
         spacing="0">
 
         <!-- Title -->
-        <Label
-            text="Welcome Back!"
-            styleClass="title-label"/>
+        <ImageView
+            fitWidth="380"
+            preserveRatio="true"
+            styleClass="logo-image">
+            <image>
+                <Image url="@../../../images/trackharbor-text-logo.png"/>
+            </image>
+        </ImageView>
 
         <!-- Email Section -->
         <VBox styleClass="field-group" spacing="6">
