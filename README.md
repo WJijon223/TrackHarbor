@@ -138,7 +138,7 @@ users/{userId}
 ### 1. Clone the Repository
 
 ```bash
-git clone https://github.com/your-username/TrackHarbor.git
+git clone https://github.com/WJijon223/TrackHarbor.git
 cd TrackHarbor
 ```
 
@@ -248,7 +248,10 @@ src/
 ## Contributors
 
 - William Jijon
-- TrackHarbor Development Team
+- Cyrus Hossain
+- Jason Martinez Maldonado
+- Christopher Soliman
+- Danilo Sanchez Hernandez
 
 ---
 
