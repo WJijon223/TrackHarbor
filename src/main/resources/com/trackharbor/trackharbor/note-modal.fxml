@@ -57,7 +57,7 @@
                 <!-- scrollable list — note rows injected here by controller -->
                 <ScrollPane fx:id="notesScrollPane"
                             fitToWidth="true"
-                            prefHeight="220.0"
+                            prefHeight="140.0"
                             styleClass="notes-scroll-pane">
                     <VBox fx:id="notesListContainer" styleClass="notes-list" spacing="8">
                         <VBox.margin><Insets top="2" bottom="2"/></VBox.margin>
@@ -87,7 +87,7 @@
                     <TextArea fx:id="aiTipsArea"
                               editable="false"
                               focusTraversable="false"
-                              prefRowCount="4"
+                              prefRowCount="10"
                               styleClass="notes-area ai-tips-area"
                               wrapText="true"/>
                     <HBox alignment="CENTER">
